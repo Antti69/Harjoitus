@@ -230,42 +230,26 @@ namespace TwoFer
 	{
 		std::string name;
 		std::string defname = "you";
-		while (true)
+		bool t = true;
+		while (t)
 		{
+			ClearStream();
 			std::cout << "Enter a name: " << std::endl;
-			std::cin >> name;
 			if (std::cin.get() == '\n')
 			{
+				t = false;
+				name = defname;
+				break;
+			}
+			else
+			{
+				std::cin >> name;
+				t = false;
 				break;
 			}
 		}
-
-		
-		
-		//std::cin >> name;
-		//std::cin.ignore(0, '\n');
-		/*if (std::cin.get() == '\n')
-		{
-			name = defname;
-			ClearStream();
-		}
-		else
-		{
-			std::cin >> name;
-		}*/
-		
-		std::cout << "One for " << name << " one for me" << std::endl;
-
-		/*if (name.empty() || name.front() == '\n')
-		{
-			std::cout << "One for " << defname << " one for me" << std::endl;
-		}
-		else
-		{
-			std::cout << "One for " << name << " one for me" << std::endl;
-		}*/
+		std::cout << "One for " << name << " one for me" << '\n' << std::endl;
 		ClearStream();
-
 	}
 }
 
