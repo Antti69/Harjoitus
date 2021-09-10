@@ -234,13 +234,16 @@ namespace TwoFer
 		{
 			std::cout << "Enter a name: " << std::endl;
 			std::cin >> name;
-			if 
+			if (std::cin.get() == '\n')
+			{
+				break;
+			}
 		}
 
 		
 		
-		std::cin >> name;
-		std::cin.ignore(0, '\n');
+		//std::cin >> name;
+		//std::cin.ignore(0, '\n');
 		/*if (std::cin.get() == '\n')
 		{
 			name = defname;
