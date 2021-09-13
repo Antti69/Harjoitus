@@ -140,11 +140,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Database.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ChessGrains.h" />
+    <ClInclude Include="Database.h" />
     <ClInclude Include="Vec2.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="data.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

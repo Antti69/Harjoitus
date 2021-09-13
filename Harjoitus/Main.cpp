@@ -3,6 +3,7 @@
 #include <algorithm>
 #include "ChessGrains.h"
 #include <sstream>
+#include "Database.h"
 
 void ClearStream()
 {
@@ -255,12 +256,13 @@ namespace TwoFer
 
 int main()
 {
+	Database db;
 	ChessGrains c;
 	int choice;
 	do
 	{
 		std::cout << "Anna komento \n0.Exit \n1.Leap Year caculator\n2.String reverse\n3.Seconds to Year\n" << std::endl;
-		std::cout << "4.ChessGrain \n5.RainDrop \n6.Pangram \n7.TwoFer" << std::endl;
+		std::cout << "4.ChessGrain \n5.RainDrop \n6.Pangram \n7.TwoFer \n8.Grade School" << std::endl;
 		std::cin >> choice;
 
 		switch (choice)
@@ -288,6 +290,8 @@ int main()
 		case 7:
 			TwoFer::TwoFer();
 			break;
+		case 8:
+			db.Process();
 		}
 
 
