@@ -13,10 +13,7 @@ private:
 	{
 		friend class Database;
 	public:
-		Entry() = default;
 		Entry(int grade, std::string name);
-		void Deserialize(std::ifstream& in);
-		void Serialize(std::ofstream& out);
 	private:
 		int grade;
 		std::string name;
@@ -32,6 +29,4 @@ private:
 
 private:
 	std::vector<Entry> entries;
-
-
 };

@@ -4,11 +4,28 @@
 #include "ChessGrains.h"
 #include <sstream>
 #include "Database.h"
+#include <functional>
 
 void ClearStream()
 {
 	std::cin.clear();
 	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+}
+
+
+void fpoint(void(*funct)(int), int a) //fuctio pointer harjoitteluu, tutki myˆhemmin saako t‰ll‰ mit‰‰n j‰rkev‰‰ aikaseks
+									  //Leap year ja Space age k‰ytt‰‰ toistaseks..
+{
+	if (std::cin.good())
+	{
+		funct(a);
+	}
+	else
+	{
+		std::cout << "Invalid input" << std::endl;
+		std::cout << '\n';
+	}
+	ClearStream();
 }
 
 namespace SpaceAge
@@ -22,11 +39,8 @@ namespace SpaceAge
 		return years;
 	}
 
-	void Process()
+	void test(int seconds)
 	{
-		int seconds;
-		std::cout << "How old are you in seconds?" << std::endl;
-		std::cin >> seconds;
 		std::cout << "You are Earths years: " << SecondsToYears(seconds) << std::endl;
 		std::cout << "You are Mercury years: " << SecondsToYears(seconds) / 0.2408467 << std::endl;
 		std::cout << "You are Venus years: " << SecondsToYears(seconds) / 0.61519726 << std::endl;
@@ -35,7 +49,15 @@ namespace SpaceAge
 		std::cout << "You are Saturn years: " << SecondsToYears(seconds) / 29.447498 << std::endl;
 		std::cout << "You are Uranus years: " << SecondsToYears(seconds) / 84.016846 << std::endl;
 		std::cout << "You are Neptune years: " << SecondsToYears(seconds) / 164.79132 << std::endl;
-		ClearStream();
+	}
+
+	void Process()
+	{
+		int seconds;
+		std::cout << "How old are you in seconds?" << std::endl;
+		std::cin >> seconds;
+		fpoint(test, seconds);
+	
 	}
 }
 
@@ -73,7 +95,6 @@ namespace LeapYear
 	bool IsLeapYear(int year)
 	{
 		bool leapYear = false;
-
 		if (year % 4 == 0)
 		{
 			if (year % 100 == 0 && year % 400 != 0)
@@ -84,7 +105,6 @@ namespace LeapYear
 			{
 				leapYear = true;
 			}
-
 		}
 		else
 		{
@@ -93,11 +113,8 @@ namespace LeapYear
 		return leapYear;
 	}
 
-	void Procces()
+	void test(int year)
 	{
-		int year;
-		std::cout << "Enter Year" << std::endl;
-		std::cin >> year;
 		bool LeapYear = IsLeapYear(year);
 		if (LeapYear)
 		{
@@ -107,7 +124,34 @@ namespace LeapYear
 		{
 			std::cout << "Not a Leap Year\n" << std::endl;
 		}
-		ClearStream();
+	}
+
+	void Procces()
+	{
+		int year;
+		std::cout << "Enter Year" << std::endl;
+		std::cin >> year;
+
+		fpoint(test, year);
+
+		/*if (std::cin.good())
+		{
+			bool LeapYear = IsLeapYear(year);
+			if (LeapYear)
+			{
+				std::cout << "Is a Leap Year\n" << std::endl;
+			}
+			else
+			{
+				std::cout << "Not a Leap Year\n" << std::endl;
+			}
+		}
+		else
+		{
+			std::cout << "Invalid input" << std::endl;
+			std::cout << '\n';
+		}*/
+		//ClearStream();
 	}
 }
 
@@ -254,6 +298,48 @@ namespace TwoFer
 	}
 }
 
+namespace HammingDist
+{
+	void Process()
+	{
+		int discount = 0;
+		std::string firstSeq;
+		std::string secondSeq;
+		std::cout << "Enter 2 Dna Strands \nNote: Need to be same lenght and using Letters: c, a, g, t \n" << std::endl;
+		std::cout << "First Sequence: ";
+		std::cin >> firstSeq;
+		std::cout << "Second Sequence: ";
+		std::cin >> secondSeq;
+
+		bool goodS1 = std::all_of(firstSeq.begin(), firstSeq.end(), [](char s) { return s == 'c' ||
+			s == 'a' || s == 'g' || s == 't'; }) &&
+			std::all_of(secondSeq.begin(), secondSeq.end(), [](char s) { return s == 'c' ||
+			s == 'a' || s == 'g' || s == 't'; }) &&
+			firstSeq.size() == secondSeq.size();
+
+		if (goodS1 == true)
+		{
+			for (auto i = 0; i < firstSeq.size(); i++)
+			{
+				if (firstSeq[i] != secondSeq[i])
+				{
+					discount += 1;
+				}
+			}
+			std::cout << "Hamming dist is: " << discount << std::endl;
+			std::cout << '\n';
+		}
+		else
+		{
+			std::cout << "Invalid input" << std::endl;
+			std::cout << '\n';
+		}
+
+		ClearStream();
+	}
+}
+
+
 int main()
 {
 	Database db;
@@ -261,10 +347,11 @@ int main()
 	int choice;
 	do
 	{
-		std::cout << "Anna komento \n0.Exit \n1.Leap Year caculator\n2.String reverse\n3.Seconds to Year\n" << std::endl;
-		std::cout << "4.ChessGrain \n5.RainDrop \n6.Pangram \n7.TwoFer \n8.Grade School" << std::endl;
+		std::cout << "Anna komento\n \n0.Exit \n1.Leap Year caculator\n2.String reverse\n3.Seconds to Year\n" << std::endl;
+		std::cout << "4.ChessGrain \n5.RainDrop \n6.Pangram \n7.TwoFer \n8.Grade School \n" << std::endl;
+		std::cout << "9.Hamming distence" << std::endl;
 		std::cin >> choice;
-
+		std::cout << '\n';
 		switch (choice)
 		{
 		case 0:
@@ -292,6 +379,10 @@ int main()
 			break;
 		case 8:
 			db.Process();
+			break;
+		case 9:
+			HammingDist::Process();
+			break;
 		}
 
 

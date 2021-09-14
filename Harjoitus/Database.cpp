@@ -15,11 +15,17 @@ void Database::Add()
 
 void Database::Load()
 {
-	std::ofstream in("data.txt");
+	std::ifstream in("data.txt");
+	
+	
+	std::string::size_type s = 1;
 
-	for (auto& i : entries)
+	for (std::string line; std::getline(in, line);)
 	{
-		in >> i
+		int grade = std::stoi(line, &s);
+
+		std::string name = { line.begin() + 2, line.end() };
+		entries.emplace_back(grade, name);
 	}
 
 }
@@ -43,6 +49,7 @@ void Database::Process()
 		std::cout << "0.Back to main menu \n1.Select grade to print \n2.Print all of the students\n3.Add Student" << std::endl;
 		std::cout << "4.Save Roster \n5.Load Roster" << std::endl;
 		std::cin >> choice;
+		std::cout << '\n';
 
 		switch (choice)
 		{
@@ -111,16 +118,4 @@ Database::Entry::Entry(int grade, std::string name)
 	grade(grade),
 	name(name)
 {
-}
-
-void Database::Entry::Deserialize(std::ifstream& in)
-{
-	in.read(reinterpret_cast<char*> (&grade), sizeof(grade));
-	in.read(reinterpret_cast<char*> (&name), sizeof(name));
-}
-
-void Database::Entry::Serialize(std::ofstream& out)
-{
-	out.write(reinterpret_cast<char*> (&grade), sizeof(grade));
-	out.write(reinterpret_cast<char*> (&name), sizeof(name));
 }
