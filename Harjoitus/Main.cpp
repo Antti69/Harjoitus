@@ -298,9 +298,107 @@ namespace TwoFer
 	}
 }
 
-namespace HammingDist
+namespace DnaStuff
 {
-	void Process()
+	bool CheckSeq(std::string Seq)
+	{
+		return std::all_of(Seq.begin(), Seq.end(), [](char s) { return s == 'C' ||
+			s == 'A' || s == 'G' || s == 'T'; });
+	}
+	void DnaToRna()
+	{
+		std::string Seq;
+		std::cout << "Enter Dna Sequence \nNote: Use Letters: C, A, G, T \n" << std::endl;
+		std::cout << "Input Sequence: ";
+		std::cin >> Seq;
+
+		std::transform(Seq.begin(), Seq.end(), Seq.begin(), ::toupper);
+	
+		bool goodS1 = CheckSeq(Seq) && CheckSeq(Seq);
+
+		if (goodS1 == true)
+		{
+			for (auto i = 0; i < Seq.size(); i++)
+			{
+				if (Seq[i] == 'A')
+				{
+					Seq[i] = 'U';
+				}
+				else if (Seq[i] == 'C')
+				{
+					Seq[i] = 'G';
+				}
+				else if (Seq[i] == 'G')
+				{
+					Seq[i] = 'C';
+				}
+				else if (Seq[i] == 'T')
+				{
+					Seq[i] = 'A';
+				}
+			}
+			std::cout << "Rna sequence is: " << Seq << std::endl;
+			std::cout << '\n';
+		}
+		else
+		{
+			std::cout << "Invalid input" << std::endl;
+			std::cout << '\n';
+		}
+		ClearStream();
+	}
+	void NucleotideCount()
+	{
+		int adenine = 0;
+		int cytosine = 0;
+		int guanine = 0;
+		int thymine = 0;
+		std::string Seq;
+		std::cout << "Enter Dna Sequence \nNote: Use Letters: C, A, G, T \n" << std::endl;
+		std::cout << "Input Sequence: ";
+		std::cin >> Seq;
+		
+		std::transform(Seq.begin(), Seq.end(), Seq.begin(), ::toupper);
+
+		bool goodS1 = CheckSeq(Seq);
+
+		if (goodS1 == true)
+		{
+			for (auto i = 0; i < Seq.size(); i++)
+			{
+				if (Seq[i] == 'A')
+				{
+					adenine += 1;
+				}
+				else if (Seq[i] == 'C')
+				{
+					cytosine += 1;
+				}
+				else if (Seq[i] == 'G')
+				{
+					guanine += 1;
+				}
+				else if (Seq[i] == 'T')
+				{
+					thymine += 1;
+				}
+			}
+			std::cout << "Dna sequence has following number of Nucleotides: \n " << std::endl;
+			std::cout << "Adenine: " << adenine << "\n" << std::endl;
+			std::cout << "Cytosine: " << cytosine << "\n" << std::endl;
+			std::cout << "Guanine: " << guanine << "\n" << std::endl;
+			std::cout << "Thymine: " << thymine << "\n" << std::endl;
+			std::cout << '\n';
+		}
+		else
+		{
+			std::cout << "Invalid input" << std::endl;
+			std::cout << '\n';
+		}
+		ClearStream();
+	}
+
+	void DnaComp()
 	{
 		int discount = 0;
 		std::string firstSeq;
@@ -310,11 +408,10 @@ namespace HammingDist
 		std::cin >> firstSeq;
 		std::cout << "Second Sequence: ";
 		std::cin >> secondSeq;
+		std::transform(firstSeq.begin(), firstSeq.end(), firstSeq.begin(), ::toupper);
+		std::transform(secondSeq.begin(), secondSeq.end(), secondSeq.begin(), ::toupper);
 
-		bool goodS1 = std::all_of(firstSeq.begin(), firstSeq.end(), [](char s) { return s == 'c' ||
-			s == 'a' || s == 'g' || s == 't'; }) &&
-			std::all_of(secondSeq.begin(), secondSeq.end(), [](char s) { return s == 'c' ||
-			s == 'a' || s == 'g' || s == 't'; }) &&
+		bool goodS1 = CheckSeq(firstSeq) && CheckSeq(secondSeq) &&
 			firstSeq.size() == secondSeq.size();
 
 		if (goodS1 == true)
@@ -334,9 +431,37 @@ namespace HammingDist
 			std::cout << "Invalid input" << std::endl;
 			std::cout << '\n';
 		}
-
 		ClearStream();
 	}
+
+	void ProcessMenu()
+	{
+		int choice;
+		do
+		{
+			std::cout << "0.Back to main menu \n1.Dna comparison \n2.Nucleotide type count \n3.Dna to Rna" << std::endl;
+			std::cin >> choice;
+			std::cout << '\n';
+
+			switch (choice)
+			{
+			case 0:
+				break;
+			case 1:
+				DnaComp();
+				break;
+			case 2:
+				NucleotideCount();
+				break;
+			case 3:
+				DnaToRna();
+				break;
+
+			}
+		} while (choice != 0);
+	}
+
+
 }
 
 
@@ -349,7 +474,7 @@ int main()
 	{
 		std::cout << "Anna komento\n \n0.Exit \n1.Leap Year caculator\n2.String reverse\n3.Seconds to Year\n" << std::endl;
 		std::cout << "4.ChessGrain \n5.RainDrop \n6.Pangram \n7.TwoFer \n8.Grade School \n" << std::endl;
-		std::cout << "9.Hamming distence" << std::endl;
+		std::cout << "9.Dna stuff" << std::endl;
 		std::cin >> choice;
 		std::cout << '\n';
 		switch (choice)
@@ -381,7 +506,7 @@ int main()
 			db.Process();
 			break;
 		case 9:
-			HammingDist::Process();
+			DnaStuff::ProcessMenu();
 			break;
 		}
 
