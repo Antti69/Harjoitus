@@ -464,6 +464,103 @@ namespace DnaStuff
 
 }
 
+namespace CollatzConjecture
+{
+	int CallatzAlgo(int n)
+	{
+		int stepcount = 0;
+
+		while (n != 1)
+		{
+			if (n % 2 == 0)
+			{
+				n /= 2;
+			}
+			else
+			{
+				n = (n * 3) + 1;
+			}
+			stepcount++;
+		}
+		return stepcount;
+	}
+
+	void Process()
+	{
+		int stepcount;
+		std::cout << "Input a number: " << std::endl;
+		std::cin >> stepcount;
+		if (std::cin.good())
+		{
+			std::cout << "Number of steps is: " << CallatzAlgo(stepcount) << "\n" << std::endl;
+		}
+		else
+		{
+			std::cout << "Invalid input" << std::endl;
+			std::cout << '\n';
+		}
+		ClearStream();
+	}
+}
+
+namespace NthPrime
+{
+	int CaculateNprime(int n)
+	{
+		std::vector<int> prime;
+		prime.reserve(50);
+		prime.push_back(2);
+		prime.push_back(3);
+		int maxnum = 100;
+		
+
+		for (int i = 5; i <= maxnum; i += 2)
+		{
+			for (int modder = 3; modder < i; modder++)
+			{
+				if (i % modder == 0)
+				{
+					continue;
+				}
+				else
+				{
+					if (std::any_of(prime.begin(), prime.end(), [i](int a) {return i == a; }))
+					{
+
+					}
+					else
+					{
+						prime.push_back(i);
+					}
+				}
+			}
+
+		}
+
+		int nthprime = prime[n];
+		return nthprime;
+
+
+	}
+	void Process()
+	{
+		int prime;
+		std::cout << "Enter a number" << std::endl;
+		std::cin >> prime;
+		if (std::cin.good())
+		{
+			std::cout << "Nth Prime number is: " << CaculateNprime(prime) << "\n" << std::endl;
+		}
+		else
+		{
+			std::cout << "Invalid input" << std::endl;
+			std::cout << '\n';
+		}
+		ClearStream();
+ 	}
+
+}
+
 
 int main()
 {
@@ -474,7 +571,7 @@ int main()
 	{
 		std::cout << "Anna komento\n \n0.Exit \n1.Leap Year caculator\n2.String reverse\n3.Seconds to Year\n" << std::endl;
 		std::cout << "4.ChessGrain \n5.RainDrop \n6.Pangram \n7.TwoFer \n8.Grade School \n" << std::endl;
-		std::cout << "9.Dna stuff" << std::endl;
+		std::cout << "9.Dna stuff \n10.CollatzConjecture \n11.Nth Prime number" << std::endl;
 		std::cin >> choice;
 		std::cout << '\n';
 		switch (choice)
@@ -507,6 +604,12 @@ int main()
 			break;
 		case 9:
 			DnaStuff::ProcessMenu();
+			break;
+		case 10:
+			CollatzConjecture::Process();
+			break;
+		case 11:
+			NthPrime::Process();
 			break;
 		}
 
