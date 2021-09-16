@@ -511,36 +511,27 @@ namespace NthPrime
 		prime.reserve(50);
 		prime.push_back(2);
 		prime.push_back(3);
-		int maxnum = 100;
+		int maxnum = 10000; //bigger than 100 000 is too slow with this algorithm
 		
-
 		for (int i = 5; i <= maxnum; i += 2)
 		{
-			for (int modder = 3; modder < i; modder++)
+			for (int modder = (i / 2) + 1; modder > 2; modder--)
 			{
-				if (i % modder == 0)
+				if (i % modder != 0)
 				{
-					continue;
-				}
-				else
-				{
-					if (std::any_of(prime.begin(), prime.end(), [i](int a) {return i == a; }))
-					{
-
-					}
-					else
+					if (modder == 3)
 					{
 						prime.push_back(i);
 					}
 				}
+				else
+				{
+					break;
+				}
 			}
-
 		}
-
 		int nthprime = prime[n];
 		return nthprime;
-
-
 	}
 	void Process()
 	{
@@ -559,6 +550,49 @@ namespace NthPrime
 		ClearStream();
  	}
 
+}
+
+namespace QueenAttackTest
+{
+	class QueenAttack
+	{
+	public:
+		bool CheckAttackVec(const std::vector<Vei2>& test) const
+		{
+
+		}
+		void SolveAttackVec(const Vei2& pos)
+		{
+			
+		}
+
+		void Process()
+		{
+			Vei2 WhitePos;
+			Vei2 BlackPos;
+			char mark;
+
+			std::cout << "Input White Queen position: " << std::endl;
+			std::cin >> WhitePos.x >> mark >> WhitePos.y;
+			std::cout << "Input Black Queen position: " << std::endl;
+			std::cin >> BlackPos.x >> mark >> BlackPos.y;
+			if (std::cin.good())
+			{
+				SolveAttackVec(WhitePos);
+
+
+			}
+			else
+			{
+				std::cout << "Invalid input" << std::endl;
+				std::cout << '\n';
+			}
+			ClearStream();
+		}
+
+	private:
+		std::vector<Vei2> AttackVec;
+	};
 }
 
 
