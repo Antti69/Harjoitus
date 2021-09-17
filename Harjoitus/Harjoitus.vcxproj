@@ -142,10 +142,12 @@
   <ItemGroup>
     <ClCompile Include="Database.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="SayNumbers.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ChessGrains.h" />
     <ClInclude Include="Database.h" />
+    <ClInclude Include="SayNumbers.h" />
     <ClInclude Include="Vec2.h" />
   </ItemGroup>
   <ItemGroup>

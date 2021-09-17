@@ -5,6 +5,7 @@
 #include <sstream>
 #include "Database.h"
 #include <functional>
+#include "SayNumbers.h"
 
 void ClearStream()
 {
@@ -557,15 +558,6 @@ namespace QueenAttackTest
 	class QueenAttack
 	{
 	public:
-		bool CheckAttackVec(const std::vector<Vei2>& test) const
-		{
-
-		}
-		void SolveAttackVec(const Vei2& pos)
-		{
-			
-		}
-
 		void Process()
 		{
 			Vei2 WhitePos;
@@ -579,8 +571,14 @@ namespace QueenAttackTest
 			if (std::cin.good())
 			{
 				SolveAttackVec(WhitePos);
-
-
+				if (CheckAttackVec(BlackPos))
+				{
+					std::cout << "Attack is possible" << std::endl;
+				}
+				else
+				{
+					std::cout << "Attack is NOT possible" << std::endl;
+				}
 			}
 			else
 			{
@@ -589,7 +587,34 @@ namespace QueenAttackTest
 			}
 			ClearStream();
 		}
+	private:
+		bool CheckAttackVec(Vei2& pos) 
+		{
+			return std::any_of(AttackVec.begin(), AttackVec.end(), [&pos](Vei2& a) {return a == pos; });
+		}
+		void SolveAttackVec(const Vei2& pos)
+		{
+			AttackVec.reserve(40);
+			for (int i = 0; i < 8; i++)
+			{
+				AttackVec.emplace_back(i, pos.y);
+			}
+			for (int i = 0; i < 8; i++)
+			{
+				AttackVec.emplace_back(pos.x, i);
+			}
 
+			for (int x = pos.x, y = pos.y; x < 8 || y < 8; x++, y++)
+			{
+				AttackVec.emplace_back(x, y);
+			}
+			for (int x = pos.x, y = pos.y; x == 0 || y == 0; x--, y--)
+			{
+				AttackVec.emplace_back(x, y);
+			}
+
+
+		}
 	private:
 		std::vector<Vei2> AttackVec;
 	};
@@ -600,12 +625,15 @@ int main()
 {
 	Database db;
 	ChessGrains c;
+	QueenAttackTest::QueenAttack q;
+	Say s;
 	int choice;
 	do
 	{
 		std::cout << "Anna komento\n \n0.Exit \n1.Leap Year caculator\n2.String reverse\n3.Seconds to Year\n" << std::endl;
 		std::cout << "4.ChessGrain \n5.RainDrop \n6.Pangram \n7.TwoFer \n8.Grade School \n" << std::endl;
-		std::cout << "9.Dna stuff \n10.CollatzConjecture \n11.Nth Prime number" << std::endl;
+		std::cout << "9.Dna stuff \n10.CollatzConjecture \n11.Nth Prime number \n12.Queen Attack \n" << std::endl;
+		std::cout << "13.NumToWords \n" << std::endl;
 		std::cin >> choice;
 		std::cout << '\n';
 		switch (choice)
@@ -644,6 +672,12 @@ int main()
 			break;
 		case 11:
 			NthPrime::Process();
+			break;
+		case 12:
+			q.Process();
+			break;
+		case 13:
+			s.Procces();
 			break;
 		}
 
