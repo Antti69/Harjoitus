@@ -18,7 +18,7 @@ Say::Say()
 	{20, "Twenty "}, {30, "Thirty "}, {40, "Fourty "}, {50, "Fifty "}, {60, "Sixty "}, {70, "Seventy "},
 	{80, "Eighty "}, {90, "Ninety "} };
 
-	test = all;
+	OneToNintyNine = all;
 
 	for (int t = 20; t < 100; t += 10)
 	{
@@ -26,7 +26,7 @@ Say::Say()
 		{
 			int ti = t + i;
 			std::string ka = all.find(t)->second + ZeroToNine.find(i)->second;
-			test.emplace(ti, ka);
+			OneToNintyNine.emplace(ti, ka);
 		}
 	}
 
@@ -60,10 +60,10 @@ void Say::Procces()
 
 			std::cout << '\n';
 			std::cout << chunks << std::endl;
-			std::cout << Translate(num) << std::endl;
+			std::cout << TranslateRecursive(num, maxnum) << std::endl; //change this func to aplly difrent methods...
 			std::cout << '\n';
+			ouputter.clear();
 		}
-
 	}
 	else
 	{
@@ -101,7 +101,7 @@ std::string Say::Translate(int input)
 
 	if (numcount > 0)
 	{
-		out += test.find(numcount)->second;
+		out += OneToNintyNine.find(numcount)->second;
 		out += "Thousands ";
 	}
 
@@ -119,7 +119,7 @@ std::string Say::Translate(int input)
 
 	if (numcount > 0)
 	{
-		out += test.find(numcount)->second;
+		out += OneToNintyNine.find(numcount)->second;
 	}
 
 	return out;
@@ -221,19 +221,50 @@ std::string Say::StringParser(int input)  //String parsing algo, handles transla
 }
 
 
-std::string Say::TranslateTestRec(int input, int dive)
+std::string Say::TranslateRecursive(int input, int div)
 {
-	std::string out;
-
-	int numcount = input / dive;
-	input %= 1000000;
-
+	int numcount = input / div;
 	if (numcount > 0)
 	{
-		out += all.find(numcount)->second;
-		out += "Million ";
+		ouputter += OneToNintyNine.find(numcount)->second;
+		ouputter += InputCounter(input);
 	}
+	input %= div;
+	if (div == 100000 || div == 100)
+	{
+		div /= 100;
+	}
+	else
+	{
+		div /= 10;
+	}
+	if (div > 0)
+	{
+		TranslateRecursive(input, div );
+	}
+	return ouputter;
+}
 
+std::string Say::InputCounter(int input)
+{
+	std::string in = std::to_string(input);
+	std::string out;
 
+	if (in.size() == 7)
+	{
+		out = "Million ";
+	}
+	else if (in.size() == 6 )
+	{
+		out = "Hundred Thousand ";
+	}
+	else if (in.size() == 3)
+	{
+		out = "Hundred ";
+	}
+	else if (in.size() == 4 || in.size() == 5)
+	{
+		out = "Thousand ";
+	}
 	return out;
 }
