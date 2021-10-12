@@ -141,16 +141,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Database.cpp" />
+    <ClCompile Include="FrameTimer.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="SayNumbers.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Bencher.h" />
     <ClInclude Include="ChessGrains.h" />
     <ClInclude Include="Database.h" />
+    <ClInclude Include="FrameTimer.h" />
     <ClInclude Include="SayNumbers.h" />
     <ClInclude Include="Vec2.h" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="Ben.txt" />
     <Text Include="data.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -34,6 +34,7 @@ Say::Say()
 
 void Say::Procces()
 {
+	b.Start();
 	int num;
 	int maxnum = 10000000;
 	std::string chunks;
@@ -60,7 +61,7 @@ void Say::Procces()
 
 			std::cout << '\n';
 			std::cout << chunks << std::endl;
-			std::cout << TranslateRecursive(num, maxnum) << std::endl; //change this func to aplly difrent methods...
+			std::cout << Translate(num) << std::endl; //change this func to aplly difrent methods...
 			std::cout << '\n';
 			ouputter.clear();
 		}
@@ -72,6 +73,14 @@ void Say::Procces()
 	}
 	std::cin.clear();
 	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+	if (b.End())
+	{
+		std::wofstream out(L"Ben.txt");
+		out << std::wstring(b);
+	}
+
+	
 }
 
 std::string Say::Translate(int input)
@@ -256,7 +265,7 @@ std::string Say::InputCounter(int input)
 	}
 	else if (in.size() == 6 )
 	{
-		out = "Hundred Thousand ";
+		out = "Hundred ";
 	}
 	else if (in.size() == 3)
 	{

@@ -3,6 +3,8 @@
 #include <iostream>
 #include <algorithm>
 #include <string>
+#include "Bencher.h"
+#include <fstream>
 
 
 class Say		//This class contains lots of expermential and practice stuff..
@@ -24,4 +26,6 @@ private:
 	std::map<int, std::string> all;
 	std::map<int, std::string> OneToNintyNine;
 	std::string ouputter; //for Recursive method..
+
+	Bencher b;
 };
