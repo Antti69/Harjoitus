@@ -6,6 +6,8 @@
 #include "Database.h"
 #include <functional>
 #include "SayNumbers.h"
+#include <cmath>
+#include "boost/date_time/posix_time/posix_time.hpp"
 
 void ClearStream()
 {
@@ -631,9 +633,18 @@ namespace Gigasecond
 
 	void Process()
 	{
-		unsigned long long int gigas;
-		std::cout << "Input a number of Gigaseconds: " << std::endl;
-		std::cin >> gigas;
+		int gigas = (int)std::pow(10, 9);
+		boost::posix_time::ptime p;
+		boost::gregorian::date d();
+		//32, 15020576131687242798353909465
+
+		
+		int year;
+		int month;
+		int date;
+		float time;
+		std::cout << "Input moment in time: " << std::endl;
+		std::cin >> date >> month >> year >> time;
 		if (std::cin.good())
 		{
 			std::cout << "Gigaseconds in years is: " << GigasecondsToYears(gigas) << std::endl;
