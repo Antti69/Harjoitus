@@ -622,38 +622,83 @@ namespace QueenAttackTest
 	};
 }
 
-//not complete, need to try out boost time lib..
+
 namespace Gigasecond
 {
-	double GigasecondsToYears(unsigned long long int gigas)
+	void Process()  // solution without external lib, it works but math sucks..
 	{
-		double years = (((double(gigas) / 60) / 60) / 24) / 365;
-		return years;
-	}
+		double gigas = std::pow(10, 9);
 
-	void Process()
-	{
-		int gigas = (int)std::pow(10, 9);
-		boost::posix_time::ptime p;
-		boost::gregorian::date d();
-		//32, 15020576131687242798353909465
+		double gyears = (((gigas / 60) / 60) / 24) / 365;
 
-		
-		int year;
-		int month;
-		int date;
-		float time;
+		double gmonths = std::modf(gyears, &gyears);
+		gmonths *= 12;
+
+		double gdates = std::modf(gmonths, &gmonths);
+		gdates *= 30;
+
+		double ghours = std::modf(gdates, &gdates);
+		ghours *= 24;
+
+		double gmins = std::modf(ghours, &ghours);
+		gmins *= 60;
+
+		double year;
+		double month;
+		double date;
+		double hours;
+		double mins;
 		std::cout << "Input moment in time: " << std::endl;
-		std::cin >> date >> month >> year >> time;
+		std::cin >> date >> month >> year >> hours >> mins;
 		if (std::cin.good())
 		{
-			std::cout << "Gigaseconds in years is: " << GigasecondsToYears(gigas) << std::endl;
+			year += gyears;
+			mins += gmins;
+			if (mins > 60)
+			{
+				hours += 1;
+				mins -= 60;
+			}
+			hours += ghours;
+			if (hours > 24)
+			{
+				date += 1;
+				hours -= 24;
+			}
+			date += gdates;
+			if (date > 30)
+			{
+				month += 1;
+				date -= 30;
+			}
+			month += gmonths;
+			if (month > 12)
+			{
+				year += 1;
+				month -= 12;
+			}
+			std::cout << "Time is: " << date << "." << month << " " << year << " " << hours << "." << int(mins) << std::endl;
 		}
 		else
 		{
 			std::cout << "Invalid input" << std::endl;
 			std::cout << '\n';
 		}
+		ClearStream();
+	}
+
+	void ProcessBoost()		//This uses boost time lib
+	{
+		namespace pt = boost::posix_time;
+		namespace gr = boost::gregorian;
+
+		int gigasec = (int)std::pow(10, 9);
+		std::string test("2000-11-25 16:11:59.000");
+		pt::ptime testaus(pt::time_from_string(test));
+
+		pt::ptime t(pt::second_clock::local_time());
+
+		std::cout << "Time is: " << testaus + pt::seconds(gigasec) << "\n" << std::endl;
 		ClearStream();
 	}
 }
@@ -718,7 +763,7 @@ int main()
 			s.Procces();
 			break;
 		case 14:
-			Gigasecond::Process();
+			Gigasecond::ProcessBoost();
 			break;
 		}
 
