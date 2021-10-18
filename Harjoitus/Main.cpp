@@ -725,30 +725,47 @@ namespace Gigasecond
 
 namespace SecretHandshake
 {
-
-	std::string CodeDecipher(unsigned int code)
+	std::vector<std::string> CodeDecipher(unsigned int code)
 	{
-		std::string res;
-
+		std::vector<std::string> res;
 		if (code & 1)
 		{
-			res += "Wink,";
+			res.push_back("Wink, ");
 		}
 		if (code & 2)
 		{
-			res += "Double Wink,";
+			res.push_back("Double Wink, ");
+		}
+		if (code & 4)
+		{
+			res.push_back("Close your eyes, ");
+		}
+		if (code & 8)
+		{
+			res.push_back("Jump, ");
+		}
+		if (code & 16)
+		{
+			std::reverse(res.begin(), res.end());
 		}
 		return res;
 	}
 
 	void Process()
 	{
+		
 		unsigned int code;
 		std::cout << "Input a number: " << std::endl;
 		std::cin >> code;
+
 		if (std::cin.good())
 		{
-			std::cout << CodeDecipher(code) << std::endl;
+			std::vector<std::string> out = CodeDecipher(code);
+			for (auto& i : out)
+			{
+				std::cout << i;
+			}
+			std::cout << '\n';
 		}
 		else
 		{
@@ -757,7 +774,6 @@ namespace SecretHandshake
 		}
 		ClearStream();
 	}
-	
 }
 
 
