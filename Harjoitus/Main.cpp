@@ -625,7 +625,7 @@ namespace QueenAttackTest
 
 namespace Gigasecond
 {
-	void Process()  // solution without external lib, it works but math sucks..
+	void Process()  // solution without external lib, it works but math sucks.. dosent count the diffrence of days in months
 	{
 		double gigas = std::pow(10, 9);
 
@@ -666,10 +666,17 @@ namespace Gigasecond
 				hours -= 24;
 			}
 			date += gdates;
-			if (date > 30)
+			int leap = (int)gyears / 4;
+			date -= leap;
+			if (date > 31)
 			{
 				month += 1;
-				date -= 30;
+				date -= 31;
+			}
+			else if (date < 0)
+			{
+				month -= 1;
+				date += 31;
 			}
 			month += gmonths;
 			if (month > 12)
@@ -677,6 +684,7 @@ namespace Gigasecond
 				year += 1;
 				month -= 12;
 			}
+
 			std::cout << "Time is: " << date << "." << month << " " << year << " " << hours << "." << int(mins) << std::endl;
 		}
 		else
@@ -692,9 +700,20 @@ namespace Gigasecond
 		namespace pt = boost::posix_time;
 		namespace gr = boost::gregorian;
 
+		int year;
+		int month;
+		int day;
+		int hour;
+		int min;
+
+		std::cout << "Input moment in time: " << std::endl;
+		std::cin >> day >> month >> year >> hour >> min;
+		std::string moment = std::to_string(year) + "-" + std::to_string(month) + "-" + std::to_string(day) + " " +
+			std::to_string(hour) + ":" + std::to_string(min) + ":" + "00.000";
+
 		int gigasec = (int)std::pow(10, 9);
 		std::string test("2000-11-25 16:11:59.000");
-		pt::ptime testaus(pt::time_from_string(test));
+		pt::ptime testaus(pt::time_from_string(moment));
 
 		pt::ptime t(pt::second_clock::local_time());
 
