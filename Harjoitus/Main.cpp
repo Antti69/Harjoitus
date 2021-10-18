@@ -8,6 +8,7 @@
 #include "SayNumbers.h"
 #include <cmath>
 #include "boost/date_time/posix_time/posix_time.hpp"
+#include <vector>
 
 void ClearStream()
 {
@@ -722,6 +723,43 @@ namespace Gigasecond
 	}
 }
 
+namespace SecretHandshake
+{
+
+	std::string CodeDecipher(unsigned int code)
+	{
+		std::string res;
+
+		if (code & 1)
+		{
+			res += "Wink,";
+		}
+		if (code & 2)
+		{
+			res += "Double Wink,";
+		}
+		return res;
+	}
+
+	void Process()
+	{
+		unsigned int code;
+		std::cout << "Input a number: " << std::endl;
+		std::cin >> code;
+		if (std::cin.good())
+		{
+			std::cout << CodeDecipher(code) << std::endl;
+		}
+		else
+		{
+			std::cout << "Invalid input" << std::endl;
+			std::cout << '\n';
+		}
+		ClearStream();
+	}
+	
+}
+
 
 int main()
 {
@@ -735,7 +773,7 @@ int main()
 		std::cout << "Anna komento\n \n0.Exit \n1.Leap Year caculator\n2.String reverse\n3.Seconds to Year\n" << std::endl;
 		std::cout << "4.ChessGrain \n5.RainDrop \n6.Pangram \n7.TwoFer \n8.Grade School \n" << std::endl;
 		std::cout << "9.Dna stuff \n10.CollatzConjecture \n11.Nth Prime number \n12.Queen Attack \n" << std::endl;
-		std::cout << "13.NumToWords \n14.Gigaseconds \n" << std::endl;
+		std::cout << "13.NumToWords \n14.Gigaseconds \n15.Secret Handshake \n" << std::endl;
 		std::cin >> choice;
 		std::cout << '\n';
 		switch (choice)
@@ -783,6 +821,9 @@ int main()
 			break;
 		case 14:
 			Gigasecond::ProcessBoost();
+			break;
+		case 15:
+			SecretHandshake::Process();
 			break;
 		}
 
