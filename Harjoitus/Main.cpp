@@ -776,6 +776,77 @@ namespace SecretHandshake
 	}
 }
 
+namespace Allergies
+{
+
+	std::vector<std::string> CodeDecipher(unsigned int code)
+	{
+		std::vector<std::string> res;
+		if (code & 1)
+		{
+			res.push_back("Eggs \n");
+		}
+		if (code & 2)
+		{
+			res.push_back("Peanuts \n");
+		}
+		if (code & 4)
+		{
+			res.push_back("Shellfish \n");
+		}
+		if (code & 8)
+		{
+			res.push_back("Strawberries \n");
+		}
+		if (code & 16)
+		{
+			res.push_back("Tomatoes \n");
+		}
+		if (code & 32)
+		{
+			res.push_back("Chocolate \n ");
+		}
+		if (code & 64)
+		{
+			res.push_back("Pollen \n");
+		}
+		if (code & 128)
+		{
+			res.push_back("Cats \n");
+		}
+		return res;
+	}
+
+	void Process()
+	{
+		std::vector<std::string> Notallergies = { ("Eggs"), ("Peanuts"), ("Shellfish"), ("Strawberries"), ("Tomatoes"), ("Chocolate"),
+		("Pollen"), ("Cats")};
+		int score;
+		std::cout << "Input a Allergia score: " << std::endl;
+		std::cin >> score;
+		if (std::cin.good())
+		{
+			std::cout << "Is allergic to: " << std::endl;
+			std::vector<std::string> allergies = CodeDecipher(score);
+			for (auto& i : allergies)
+			{
+				std::cout << i;
+			}
+			std::cout << '\n';
+			std::cout << "Is Not allergic to: " << std::endl;
+			std::remove_if(Notallergies.begin(), Notallergies.end(), [&](std::string& g)
+			{
+				return std::find_if(allergies.begin(), allergies.end(), [&g](std::string& s) {return g == s; });
+			});
+		}
+		else
+		{
+			std::cout << "Invalid input" << std::endl;
+			std::cout << '\n';
+		}
+		ClearStream();
+	}
+}
 
 int main()
 {
@@ -789,7 +860,7 @@ int main()
 		std::cout << "Anna komento\n \n0.Exit \n1.Leap Year caculator\n2.String reverse\n3.Seconds to Year\n" << std::endl;
 		std::cout << "4.ChessGrain \n5.RainDrop \n6.Pangram \n7.TwoFer \n8.Grade School \n" << std::endl;
 		std::cout << "9.Dna stuff \n10.CollatzConjecture \n11.Nth Prime number \n12.Queen Attack \n" << std::endl;
-		std::cout << "13.NumToWords \n14.Gigaseconds \n15.Secret Handshake \n" << std::endl;
+		std::cout << "13.NumToWords \n14.Gigaseconds \n15.Secret Handshake \n16.Allergies \n" << std::endl;
 		std::cin >> choice;
 		std::cout << '\n';
 		switch (choice)
@@ -840,6 +911,9 @@ int main()
 			break;
 		case 15:
 			SecretHandshake::Process();
+			break;
+		case 16:
+			Allergies::Process();
 			break;
 		}
 
