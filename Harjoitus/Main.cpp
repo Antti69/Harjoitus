@@ -16,6 +16,22 @@ void ClearStream()
 	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
 
+template<typename T>
+void RemoveMatchElementsVec(std::vector<T>& VecToRem, const std::vector<T>& comp)
+{
+	for (int vecr = 0; vecr < VecToRem.size(); vecr++)
+	{
+		for (int vecco = 0; vecco < comp.size(); vecco++)
+		{
+			if (VecToRem[vecr] == comp[vecco])
+			{
+				VecToRem.erase(VecToRem.begin() + vecr);
+			}
+		}
+	}
+
+}
+
 
 void fpoint(void(*funct)(int), int a) //fuctio pointer harjoitteluu, tutki myöhemmin saako tällä mitään järkevää aikaseks
 									  //Leap year ja Space age käyttää toistaseks..
@@ -778,41 +794,40 @@ namespace SecretHandshake
 
 namespace Allergies
 {
-
 	std::vector<std::string> CodeDecipher(unsigned int code)
 	{
 		std::vector<std::string> res;
 		if (code & 1)
 		{
-			res.push_back("Eggs \n");
+			res.push_back("Eggs");
 		}
 		if (code & 2)
 		{
-			res.push_back("Peanuts \n");
+			res.push_back("Peanuts");
 		}
 		if (code & 4)
 		{
-			res.push_back("Shellfish \n");
+			res.push_back("Shellfish");
 		}
 		if (code & 8)
 		{
-			res.push_back("Strawberries \n");
+			res.push_back("Strawberries");
 		}
 		if (code & 16)
 		{
-			res.push_back("Tomatoes \n");
+			res.push_back("Tomatoes");
 		}
 		if (code & 32)
 		{
-			res.push_back("Chocolate \n ");
+			res.push_back("Chocolate");
 		}
 		if (code & 64)
 		{
-			res.push_back("Pollen \n");
+			res.push_back("Pollen");
 		}
 		if (code & 128)
 		{
-			res.push_back("Cats \n");
+			res.push_back("Cats");
 		}
 		return res;
 	}
@@ -830,14 +845,17 @@ namespace Allergies
 			std::vector<std::string> allergies = CodeDecipher(score);
 			for (auto& i : allergies)
 			{
-				std::cout << i;
+				std::cout << i << '\n';
 			}
 			std::cout << '\n';
 			std::cout << "Is Not allergic to: " << std::endl;
-			std::remove_if(Notallergies.begin(), Notallergies.end(), [&](std::string& g)
+			RemoveMatchElementsVec(Notallergies, allergies);
+			
+			for (auto& i : Notallergies)
 			{
-				return std::find_if(allergies.begin(), allergies.end(), [&g](std::string& s) {return g == s; });
-			});
+				std::cout << i << '\n';
+			}
+			std::cout << '\n';
 		}
 		else
 		{
