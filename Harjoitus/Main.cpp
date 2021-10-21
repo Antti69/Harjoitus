@@ -9,6 +9,7 @@
 #include <cmath>
 #include "boost/date_time/posix_time/posix_time.hpp"
 #include <vector>
+#include <map>
 
 void ClearStream()
 {
@@ -29,7 +30,16 @@ void RemoveMatchElementsVec(std::vector<T>& VecToRem, const std::vector<T>& comp
 			}
 		}
 	}
+}
 
+template<typename T>
+void PrintVec(const std::vector<T> out)
+{
+	for (auto& i : out)
+	{
+		std::cout << i << '\n';
+	}
+	ClearStream();
 }
 
 
@@ -454,12 +464,66 @@ namespace DnaStuff
 		ClearStream();
 	}
 
+	std::vector<std::string> InputParser(const std::string input)
+	{
+		std::vector<std::string> output;
+
+		for (int i = 0; i < int(input.size()); i += 3)
+		{
+			output.push_back(input.substr(i, 3));
+		}
+		return output;
+	}
+
+	std::vector<std::string> CodoTranslator(std::vector<std::string> input)
+	{
+		std::vector<std::string> output;
+		std::map<std::string, std::string> Proteins = { {"AUG", "Methionine"}, {"UUU","Phenylalanine"}, {"UUC", "Phenylalanine"},
+			{"UUA", "Leucine"}, {"UUG", "Leucine"}, {"UCU", "Serine"}, {"UCC", "Serine"}, {"UCA", "Serine"}, {"UCG", "Serine"},
+			{"UAU", "Tyrosine"}, {"UAC", "Tyrosine"},{"UGU", "Cysteine"}, {"UGC", "Cysteine"},{"UGG", "Tryptophan"},
+			{"UAA", "STOP"}, {"UAG", "STOP"}, {"UGA", "STOP"} };
+
+		for (int i = 0; i < input.size(); i++)
+		{
+			if (Proteins.find(input[i])->second == "STOP")
+			{
+				break;
+			}
+			else
+			{
+				output.push_back(Proteins.find(input[i])->second);
+			}
+		}
+		return output;
+	}
+
+	void ProcessProteinTranslation()
+	{
+		std::string input;
+		std::cout << "Input a Protein Codons: " << std::endl;
+		std::cin >> input;
+		std::transform(input.begin(), input.end(), input.begin(), ::toupper);
+		bool goodinput = std::all_of(input.begin(), input.end(), [](char l) {return l == 'A' || l == 'U' || l == 'G' || l == 'C'; });
+		if (std::cin.good() && goodinput)
+		{
+			std::vector<std::string> codos = InputParser(input);
+			std::vector<std::string> out = CodoTranslator(codos);
+			PrintVec(out);
+		}
+		else
+		{
+			std::cout << "Invalid input" << std::endl;
+			std::cout << '\n';
+		}
+		ClearStream();
+	}
+
 	void ProcessMenu()
 	{
 		int choice;
 		do
 		{
-			std::cout << "0.Back to main menu \n1.Dna comparison \n2.Nucleotide type count \n3.Dna to Rna" << std::endl;
+			std::cout << "0.Back to main menu \n1.Dna comparison \n2.Nucleotide type count \n3.Dna to Rna \n4.Protein Translation" << std::endl;
 			std::cin >> choice;
 			std::cout << '\n';
 
@@ -476,7 +540,9 @@ namespace DnaStuff
 			case 3:
 				DnaToRna();
 				break;
-
+			case 4:
+				ProcessProteinTranslation();
+				break;
 			}
 		} while (choice != 0);
 	}
@@ -879,6 +945,7 @@ int main()
 		std::cout << "4.ChessGrain \n5.RainDrop \n6.Pangram \n7.TwoFer \n8.Grade School \n" << std::endl;
 		std::cout << "9.Dna stuff \n10.CollatzConjecture \n11.Nth Prime number \n12.Queen Attack \n" << std::endl;
 		std::cout << "13.NumToWords \n14.Gigaseconds \n15.Secret Handshake \n16.Allergies \n" << std::endl;
+		
 		std::cin >> choice;
 		std::cout << '\n';
 		switch (choice)
