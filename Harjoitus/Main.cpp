@@ -10,6 +10,7 @@
 #include "boost/date_time/posix_time/posix_time.hpp"
 #include <vector>
 #include <map>
+#include <numeric>
 
 void ClearStream()
 {
@@ -932,6 +933,97 @@ namespace Allergies
 	}
 }
 
+namespace SumOfMultiplies
+{
+	int CaculateSumOfMultiples(int maxnum, int firstmul, int secondmul)
+	{
+		std::vector<int> res;
+		for (int i = 1; i < maxnum / firstmul + 1; i++)
+		{
+			if (firstmul * i < maxnum)
+			{
+				res.push_back(firstmul * i);
+			}
+			
+		}
+		for (int i = 1; i < maxnum / secondmul + 1; i++)
+		{
+			if (secondmul * i < maxnum)
+			{
+				res.push_back(secondmul * i);
+			}
+		}
+		std::sort(res.begin(), res.end());
+		auto it = std::unique(res.begin(), res.end());
+		res.resize(std::distance(res.begin(), it));
+		int endval = 0;
+		endval = std::accumulate(res.begin(), res.end(), endval);
+		return endval;
+	}
+
+	void Process()
+	{
+		int maxnum;
+		int firstmul;
+		int secondmul;
+		std::cout << "Input a MaxNum: " << std::endl;
+		std::cin >> maxnum;
+		std::cout << "Input two multiples:  " << std::endl;
+		std::cin >> firstmul >> secondmul;
+		if (std::cin.good())
+		{
+			std::cout << "Sum of all multiples are: " << CaculateSumOfMultiples(maxnum, firstmul, secondmul) << std::endl;
+		}
+		else
+		{
+			std::cout << "Invalid input" << std::endl;
+			std::cout << '\n';
+		}
+		ClearStream();
+	}
+}
+
+namespace PrimeFactors
+{
+	std::vector<int> res;
+	std::vector<int> PrimeFactorCac(int num, int divider)
+	{
+		if (num % divider == 0)
+		{
+			res.push_back(divider);
+			num /= divider;
+		}
+		else
+		{
+			divider++;
+		}
+		if (num > 1)
+		{
+			PrimeFactorCac(num, divider);
+		}
+		return res;
+	}
+
+	void Process()
+	{
+		int num;
+		std::cout << "Input a number: " << std::endl;
+		std::cin >> num;
+		if (std::cin.good())
+		{
+			std::vector<int> out = PrimeFactorCac(num, 2);
+			std::cout << "Prime Factors are: " << '\n';
+			PrintVec(out);
+		}
+		else
+		{
+			std::cout << "Invalid input" << std::endl;
+			std::cout << '\n';
+		}
+		ClearStream();
+	}
+}
+
 int main()
 {
 	Database db;
@@ -945,6 +1037,7 @@ int main()
 		std::cout << "4.ChessGrain \n5.RainDrop \n6.Pangram \n7.TwoFer \n8.Grade School \n" << std::endl;
 		std::cout << "9.Dna stuff \n10.CollatzConjecture \n11.Nth Prime number \n12.Queen Attack \n" << std::endl;
 		std::cout << "13.NumToWords \n14.Gigaseconds \n15.Secret Handshake \n16.Allergies \n" << std::endl;
+		std::cout << "17.SumOfMulti \n18.Prime Factors " << std::endl;
 		
 		std::cin >> choice;
 		std::cout << '\n';
@@ -999,6 +1092,12 @@ int main()
 			break;
 		case 16:
 			Allergies::Process();
+			break;
+		case 17:
+			SumOfMultiplies::Process();
+			break;
+		case 18:
+			PrimeFactors::Process();
 			break;
 		}
 
