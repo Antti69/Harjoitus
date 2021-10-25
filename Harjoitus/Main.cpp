@@ -11,6 +11,7 @@
 #include <vector>
 #include <map>
 #include <numeric>
+#include "RobotFactory.h"
 
 void ClearStream()
 {
@@ -1028,6 +1029,7 @@ int main()
 {
 	Database db;
 	ChessGrains c;
+	RobotFactory r;
 	QueenAttackTest::QueenAttack q;
 	Say s;
 	int choice;
@@ -1037,7 +1039,7 @@ int main()
 		std::cout << "4.ChessGrain \n5.RainDrop \n6.Pangram \n7.TwoFer \n8.Grade School \n" << std::endl;
 		std::cout << "9.Dna stuff \n10.CollatzConjecture \n11.Nth Prime number \n12.Queen Attack \n" << std::endl;
 		std::cout << "13.NumToWords \n14.Gigaseconds \n15.Secret Handshake \n16.Allergies \n" << std::endl;
-		std::cout << "17.SumOfMulti \n18.Prime Factors " << std::endl;
+		std::cout << "17.SumOfMulti \n18.Prime Factors \n19.RobotFactory " << std::endl;
 		
 		std::cin >> choice;
 		std::cout << '\n';
@@ -1098,6 +1100,9 @@ int main()
 			break;
 		case 18:
 			PrimeFactors::Process();
+			break;
+		case 19:
+			r.Process();
 			break;
 		}
 
