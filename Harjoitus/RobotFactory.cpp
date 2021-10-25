@@ -40,8 +40,11 @@ void RobotFactory::AddRobo()
 
 void RobotFactory::ResetRobo()
 {
-
-
+	int r;
+	std::cout << "Enter number of Robot that you want to a reset: " << std::endl;
+	std::cin >> r;
+	robotname.find(r)->second = GenerateName();
+	std::cout << "Robots new name is: \n" << robotname.find(r)->second << std::endl;
 }
 
 void RobotFactory::PrintRobos()
