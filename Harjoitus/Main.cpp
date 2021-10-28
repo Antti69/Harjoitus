@@ -1,3 +1,4 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <string>
 #include <algorithm>
@@ -12,6 +13,10 @@
 #include <map>
 #include <numeric>
 #include "RobotFactory.h"
+#include <chrono>
+#include <ctime>
+#include <iomanip>
+
 
 void ClearStream()
 {
@@ -1025,6 +1030,22 @@ namespace PrimeFactors
 	}
 }
 
+
+void timetest()
+{
+
+	using namespace std::chrono;
+	std::tm bt = {};
+	system_clock::time_point current = system_clock::now();
+	std::time_t time;
+	time = system_clock::to_time_t(current);
+	std::cout << std::put_time(localtime_s(&bt, &time), "%R") << std::endl;
+
+	
+	ClearStream();
+
+}
+
 int main()
 {
 	Database db;
@@ -1039,7 +1060,7 @@ int main()
 		std::cout << "4.ChessGrain \n5.RainDrop \n6.Pangram \n7.TwoFer \n8.Grade School \n" << std::endl;
 		std::cout << "9.Dna stuff \n10.CollatzConjecture \n11.Nth Prime number \n12.Queen Attack \n" << std::endl;
 		std::cout << "13.NumToWords \n14.Gigaseconds \n15.Secret Handshake \n16.Allergies \n" << std::endl;
-		std::cout << "17.SumOfMulti \n18.Prime Factors \n19.RobotFactory " << std::endl;
+		std::cout << "17.SumOfMulti \n18.Prime Factors \n19.RobotFactory \n20.Clock " << std::endl;
 		
 		std::cin >> choice;
 		std::cout << '\n';
@@ -1103,6 +1124,9 @@ int main()
 			break;
 		case 19:
 			r.Process();
+			break;
+		case 20:
+			timetest();
 			break;
 		}
 

@@ -149,6 +149,7 @@
   <ItemGroup>
     <ClInclude Include="Bencher.h" />
     <ClInclude Include="ChessGrains.h" />
+    <ClInclude Include="Clock.h" />
     <ClInclude Include="Database.h" />
     <ClInclude Include="FrameTimer.h" />
     <ClInclude Include="RobotFactory.h" />
