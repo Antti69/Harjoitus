@@ -1,4 +1,4 @@
-#define _CRT_SECURE_NO_WARNINGS
+
 #include <iostream>
 #include <string>
 #include <algorithm>
@@ -16,6 +16,8 @@
 #include <chrono>
 #include <ctime>
 #include <iomanip>
+#include "Clock.h"
+#include <conio.h>
 
 
 void ClearStream()
@@ -62,6 +64,24 @@ void fpoint(void(*funct)(int), int a) //fuctio pointer harjoitteluu, tutki myöhe
 		std::cout << "Invalid input" << std::endl;
 		std::cout << '\n';
 	}
+	ClearStream();
+}
+
+
+void StopWatch()
+{
+	char start;
+
+	std::cout << "Press enter to s the Clock!" << std::endl;
+	std::cin >> start;
+	int sec = 0;
+	while (!_kbhit())
+	{
+		std::cout << "Timer: " << sec << std::endl;
+		system("cls");
+		sec++;
+	}
+	std::cout << "Timer: " << sec << std::endl;
 	ClearStream();
 }
 
@@ -1031,26 +1051,16 @@ namespace PrimeFactors
 }
 
 
-void timetest()
-{
 
-	using namespace std::chrono;
-	std::tm bt = {};
-	system_clock::time_point current = system_clock::now();
-	std::time_t time;
-	time = system_clock::to_time_t(current);
-	std::cout << std::put_time(localtime_s(&bt, &time), "%R") << std::endl;
 
-	
-	ClearStream();
 
-}
 
 int main()
 {
 	Database db;
 	ChessGrains c;
 	RobotFactory r;
+	Clock clock;
 	QueenAttackTest::QueenAttack q;
 	Say s;
 	int choice;
@@ -1126,7 +1136,8 @@ int main()
 			r.Process();
 			break;
 		case 20:
-			timetest();
+			//clock.ProccesMenu();
+			StopWatch();
 			break;
 		}
 

@@ -4,21 +4,19 @@
 #include <ratio>
 #include <iostream>
 #include <string>
+#include <ctime>
+#include <iomanip>
 
 class Clock
 {
 public:
 	Clock();
 	void ProccesMenu();
+private:
+	void TellTime();
+	void ChangeTime();
 
 private:
-
-
-protected:
-	int mins;
-	int secons;
-
-private:
-	int hour;
-
+	time_t aika;
+	struct tm timebuffer;
 };

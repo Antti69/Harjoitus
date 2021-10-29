@@ -140,6 +140,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Clock.cpp" />
     <ClCompile Include="Database.cpp" />
     <ClCompile Include="FrameTimer.cpp" />
     <ClCompile Include="Main.cpp" />
