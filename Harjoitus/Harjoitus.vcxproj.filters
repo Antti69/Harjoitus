@@ -59,6 +59,9 @@
     <ClInclude Include="Clock.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="HelperFunc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="data.txt">

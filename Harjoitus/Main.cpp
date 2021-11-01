@@ -1,55 +1,10 @@
 
-#include <iostream>
-#include <string>
-#include <algorithm>
 #include "ChessGrains.h"
-#include <sstream>
 #include "Database.h"
-#include <functional>
 #include "SayNumbers.h"
-#include <cmath>
-#include "boost/date_time/posix_time/posix_time.hpp"
-#include <vector>
-#include <map>
-#include <numeric>
 #include "RobotFactory.h"
-#include <chrono>
-#include <ctime>
-#include <iomanip>
 #include "Clock.h"
-#include <conio.h>
-
-
-void ClearStream()
-{
-	std::cin.clear();
-	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-}
-
-template<typename T>
-void RemoveMatchElementsVec(std::vector<T>& VecToRem, const std::vector<T>& comp)
-{
-	for (int vecr = 0; vecr < VecToRem.size(); vecr++)
-	{
-		for (int vecco = 0; vecco < comp.size(); vecco++)
-		{
-			if (VecToRem[vecr] == comp[vecco])
-			{
-				VecToRem.erase(VecToRem.begin() + vecr);
-			}
-		}
-	}
-}
-
-template<typename T>
-void PrintVec(const std::vector<T> out)
-{
-	for (auto& i : out)
-	{
-		std::cout << i << '\n';
-	}
-	ClearStream();
-}
+#include "HelperFunc.h"
 
 
 void fpoint(void(*funct)(int), int a) //fuctio pointer harjoitteluu, tutki myöhemmin saako tällä mitään järkevää aikaseks
@@ -64,26 +19,9 @@ void fpoint(void(*funct)(int), int a) //fuctio pointer harjoitteluu, tutki myöhe
 		std::cout << "Invalid input" << std::endl;
 		std::cout << '\n';
 	}
-	ClearStream();
+	Help::ClearStream();
 }
 
-
-void StopWatch()
-{
-	char start;
-
-	std::cout << "Press enter to s the Clock!" << std::endl;
-	std::cin >> start;
-	int sec = 0;
-	while (!_kbhit())
-	{
-		std::cout << "Timer: " << sec << std::endl;
-		system("cls");
-		sec++;
-	}
-	std::cout << "Timer: " << sec << std::endl;
-	ClearStream();
-}
 
 namespace SpaceAge
 {
@@ -125,7 +63,7 @@ namespace InputRev
 	{
 		std::string output;
 
-		for (int i = int(input.size()); i >= 0; i--)
+		for (int i = (int)input.size() - 1; i >= 0; i--)
 		{
 			output.push_back(input[i]);
 		}
@@ -140,7 +78,7 @@ namespace InputRev
 		input = Reverse(input);
 		std::cout << input << std::endl;
 
-		ClearStream();
+		Help::ClearStream();
 
 	}
 }
@@ -249,7 +187,7 @@ namespace Raindrop
 		std::cout << "Enter a number" << std::endl;
 		std::cin >> num;
 		std::cout << "Raindrop bullshit corresponding:  " << FactorCac(num) << std::endl;
-		ClearStream();
+		Help::ClearStream();
 	}
 }
 
@@ -312,7 +250,6 @@ namespace Pangram  //rangillä paremmaks?
 			std::getline(std::cin, input);
 		} while (std::cin.get() != '\n');
 		
-
 		if (PangramCheck(input))
 		{
 			std::cout << "Phrase is a Pangram" << std::endl;
@@ -321,8 +258,7 @@ namespace Pangram  //rangillä paremmaks?
 		{
 			std::cout << "Phrase is NOT a Pangram" << std::endl;
 		}
-
-		ClearStream();
+		Help::ClearStream();
 	}
 }
 
@@ -335,7 +271,7 @@ namespace TwoFer
 		bool t = true;
 		while (t)
 		{
-			ClearStream();
+			Help::ClearStream();
 			std::cout << "Enter a name: " << std::endl;
 			if (std::cin.get() == '\n')
 			{
@@ -351,7 +287,7 @@ namespace TwoFer
 			}
 		}
 		std::cout << "One for " << name << " one for me" << '\n' << std::endl;
-		ClearStream();
+		Help::ClearStream();
 	}
 }
 
@@ -402,7 +338,7 @@ namespace DnaStuff
 			std::cout << "Invalid input" << std::endl;
 			std::cout << '\n';
 		}
-		ClearStream();
+		Help::ClearStream();
 	}
 	void NucleotideCount()
 	{
@@ -452,7 +388,7 @@ namespace DnaStuff
 			std::cout << "Invalid input" << std::endl;
 			std::cout << '\n';
 		}
-		ClearStream();
+		Help::ClearStream();
 	}
 
 	void DnaComp()
@@ -488,7 +424,7 @@ namespace DnaStuff
 			std::cout << "Invalid input" << std::endl;
 			std::cout << '\n';
 		}
-		ClearStream();
+		Help::ClearStream();
 	}
 
 	std::vector<std::string> InputParser(const std::string input)
@@ -535,14 +471,14 @@ namespace DnaStuff
 		{
 			std::vector<std::string> codos = InputParser(input);
 			std::vector<std::string> out = CodoTranslator(codos);
-			PrintVec(out);
+			Help::PrintVec(out);
 		}
 		else
 		{
 			std::cout << "Invalid input" << std::endl;
 			std::cout << '\n';
 		}
-		ClearStream();
+		Help::ClearStream();
 	}
 
 	void ProcessMenu()
@@ -612,7 +548,7 @@ namespace CollatzConjecture
 			std::cout << "Invalid input" << std::endl;
 			std::cout << '\n';
 		}
-		ClearStream();
+		Help::ClearStream();
 	}
 }
 
@@ -660,7 +596,7 @@ namespace NthPrime
 			std::cout << "Invalid input" << std::endl;
 			std::cout << '\n';
 		}
-		ClearStream();
+		Help::ClearStream();
  	}
 
 }
@@ -697,7 +633,7 @@ namespace QueenAttackTest
 				std::cout << "Invalid input" << std::endl;
 				std::cout << '\n';
 			}
-			ClearStream();
+			Help::ClearStream();
 		}
 	private:
 		bool CheckAttackVec(Vei2& pos) 
@@ -802,7 +738,7 @@ namespace Gigasecond
 			std::cout << "Invalid input" << std::endl;
 			std::cout << '\n';
 		}
-		ClearStream();
+		Help::ClearStream();
 	}
 
 	void ProcessBoost()		//This uses boost time lib
@@ -828,7 +764,7 @@ namespace Gigasecond
 		pt::ptime t(pt::second_clock::local_time());
 
 		std::cout << "Time is: " << testaus + pt::seconds(gigasec) << "\n" << std::endl;
-		ClearStream();
+		Help::ClearStream();
 	}
 }
 
@@ -870,18 +806,14 @@ namespace SecretHandshake
 		if (std::cin.good())
 		{
 			std::vector<std::string> out = CodeDecipher(code);
-			for (auto& i : out)
-			{
-				std::cout << i;
-			}
-			std::cout << '\n';
+			Help::PrintVec(out);
 		}
 		else
 		{
 			std::cout << "Invalid input" << std::endl;
 			std::cout << '\n';
 		}
-		ClearStream();
+		Help::ClearStream();
 	}
 }
 
@@ -936,26 +868,18 @@ namespace Allergies
 		{
 			std::cout << "Is allergic to: " << std::endl;
 			std::vector<std::string> allergies = CodeDecipher(score);
-			for (auto& i : allergies)
-			{
-				std::cout << i << '\n';
-			}
-			std::cout << '\n';
+			Help::PrintVec(allergies);
 			std::cout << "Is Not allergic to: " << std::endl;
-			RemoveMatchElementsVec(Notallergies, allergies);
+			Help::RemoveMatchElementsVec(Notallergies, allergies);
 			
-			for (auto& i : Notallergies)
-			{
-				std::cout << i << '\n';
-			}
-			std::cout << '\n';
+			Help::PrintVec(Notallergies);
 		}
 		else
 		{
 			std::cout << "Invalid input" << std::endl;
 			std::cout << '\n';
 		}
-		ClearStream();
+		Help::ClearStream();
 	}
 }
 
@@ -1005,7 +929,7 @@ namespace SumOfMultiplies
 			std::cout << "Invalid input" << std::endl;
 			std::cout << '\n';
 		}
-		ClearStream();
+		Help::ClearStream();
 	}
 }
 
@@ -1039,19 +963,73 @@ namespace PrimeFactors
 		{
 			std::vector<int> out = PrimeFactorCac(num, 2);
 			std::cout << "Prime Factors are: " << '\n';
-			PrintVec(out);
+			Help::PrintVec(out);
 		}
 		else
 		{
 			std::cout << "Invalid input" << std::endl;
 			std::cout << '\n';
 		}
-		ClearStream();
+		Help::ClearStream();
 	}
 }
 
 
+namespace AtbashCipher
+{
 
+
+	std::string Encoder(std::string& in)
+	{
+		std::string alpha = "abcdefghijklmnopqrstuvwxyz";
+		std::string cipher = InputRev::Reverse(alpha);
+		std::string out;
+		for (int i = 0; i < (int)in.size(); i++)
+		{
+			char c = in[i];
+			auto s = alpha.find(c);
+			char oc = cipher[s];
+			out.push_back(oc);
+		}
+		return out;
+
+	}
+	std::string Decoder(std::string& in)
+	{
+		std::string out;
+		return out;
+	}
+
+
+	void Process()
+	{
+		std::string input;
+
+		int choice;
+		do
+		{
+			std::cout << "0.Back to main menu \n1.Encode \n2.Decode" << std::endl;
+			std::cin >> choice;
+			std::cout << '\n';
+
+			switch (choice)
+			{
+			case 0:
+				break;
+			case 1:
+				std::cout << "Input code" << std::endl;
+				std::cin >> input;
+				std::cout << "Encoded is: " << Encoder(input) << std::endl;
+				break;
+			case 2:
+
+				break;
+
+			}
+		} while (choice != 0);
+		Help::ClearStream();
+	}
+}
 
 
 
@@ -1070,7 +1048,8 @@ int main()
 		std::cout << "4.ChessGrain \n5.RainDrop \n6.Pangram \n7.TwoFer \n8.Grade School \n" << std::endl;
 		std::cout << "9.Dna stuff \n10.CollatzConjecture \n11.Nth Prime number \n12.Queen Attack \n" << std::endl;
 		std::cout << "13.NumToWords \n14.Gigaseconds \n15.Secret Handshake \n16.Allergies \n" << std::endl;
-		std::cout << "17.SumOfMulti \n18.Prime Factors \n19.RobotFactory \n20.Clock " << std::endl;
+		std::cout << "17.SumOfMulti \n18.Prime Factors \n19.RobotFactory \n20.Clock \n" << std::endl;
+		std::cout << "21.AtbashCipher  " << std::endl;
 		
 		std::cin >> choice;
 		std::cout << '\n';
@@ -1136,8 +1115,10 @@ int main()
 			r.Process();
 			break;
 		case 20:
-			//clock.ProccesMenu();
-			StopWatch();
+			clock.ProccesMenu();
+			break;
+		case 21:
+			AtbashCipher::Process();
 			break;
 		}
 

@@ -6,6 +6,8 @@
 #include <string>
 #include <ctime>
 #include <iomanip>
+#include "FrameTimer.h"
+#include <conio.h>
 
 class Clock
 {
@@ -15,7 +17,7 @@ public:
 private:
 	void TellTime();
 	void ChangeTime();
-
+	void StopWatch();
 private:
 	time_t aika;
 	struct tm timebuffer;
