@@ -978,18 +978,24 @@ namespace PrimeFactors
 namespace AtbashCipher
 {
 
-
+	std::string alpha = "abcdefghijklmnopqrstuvwxyz";
+	std::string cipher = InputRev::Reverse(alpha);
 	std::string Encoder(std::string& in)
 	{
-		std::string alpha = "abcdefghijklmnopqrstuvwxyz";
-		std::string cipher = InputRev::Reverse(alpha);
 		std::string out;
 		for (int i = 0; i < (int)in.size(); i++)
 		{
 			char c = in[i];
-			auto s = alpha.find(c);
-			char oc = cipher[s];
-			out.push_back(oc);
+			if (c == ' ')
+			{
+				continue;
+			}
+			else
+			{
+				auto s = alpha.find(c);
+				char oc = cipher[s];
+				out.push_back(oc);
+			}
 		}
 		return out;
 
@@ -997,6 +1003,20 @@ namespace AtbashCipher
 	std::string Decoder(std::string& in)
 	{
 		std::string out;
+		for (int i = 0; i < (int)in.size(); i++)
+		{
+			char c = in[i];
+			if (c == ' ')
+			{
+				continue;
+			}
+			else
+			{
+				auto s = cipher.find(c);
+				char oc = alpha[s];
+				out.push_back(oc);
+			}
+		}
 		return out;
 	}
 
@@ -1004,7 +1024,6 @@ namespace AtbashCipher
 	void Process()
 	{
 		std::string input;
-
 		int choice;
 		do
 		{
@@ -1018,11 +1037,17 @@ namespace AtbashCipher
 				break;
 			case 1:
 				std::cout << "Input code" << std::endl;
-				std::cin >> input;
+				Help::ClearStream();
+				std::getline(std::cin, input);
 				std::cout << "Encoded is: " << Encoder(input) << std::endl;
+				input.clear();
 				break;
 			case 2:
-
+				std::cout << "Input code" << std::endl;
+				Help::ClearStream();
+				std::getline(std::cin, input);
+				std::cout << "Decoded is: " << Decoder(input) << std::endl;
+				input.clear();
 				break;
 
 			}
