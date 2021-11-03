@@ -5,6 +5,7 @@
 #include "RobotFactory.h"
 #include "Clock.h"
 #include "HelperFunc.h"
+#include <iterator>
 
 
 void fpoint(void(*funct)(int), int a) //fuctio pointer harjoitteluu, tutki myöhemmin saako tällä mitään järkevää aikaseks
@@ -1056,6 +1057,81 @@ namespace AtbashCipher
 	}
 }
 
+namespace Trinary
+{
+	int CaculateTrinaryToDecimal(const std::string& in)
+	{
+		int result = 0;
+		for (int i = 0, e = (int)in.size() - 1; i < (int)in.size(); i++, e--)
+		{
+			char c = in[i];
+			int temp = std::atoi(&c) * (int)std::pow(3, e);
+			result += temp;
+		}
+		return result;
+	}
+	void Process()
+	{
+		std::string tenary;
+		std::cout << "Input a tenary number: " << std::endl;
+		std::cin >> tenary;
+		if (std::cin.good())
+		{
+			std::cout << "Trinary Number in decimal is: " << CaculateTrinaryToDecimal(tenary) << "\n" << std::endl;
+		}
+		else
+		{
+			std::cout << "Invalid input" << std::endl;
+			std::cout << '\n';
+		}
+		Help::ClearStream();
+	}
+}
+
+namespace BinarySearch
+{
+	template<typename Container, typename T>
+	int BinSearch(Container cont, T val)
+	{
+		auto l = std::begin(cont);
+		auto r = std::end(cont);
+		auto size = std::distance(l, r);
+
+		int index = -1;
+		
+		while (l <= r)
+		{
+			auto mid = l + (r - l) / 2;
+			if (*mid == val)
+			{
+				index = *mid;
+				break;
+			}
+			if (*mid < val)
+			{
+				*l = *mid + 1;
+			}
+			if (*mid > val)
+			{
+				*r = *mid - 1;
+			}
+		}
+		return index;
+	}
+	void Process()
+	{
+		std::vector<int> test;
+		for (int i = 0; i < 100; i++)
+		{
+			test.push_back(i);
+		}
+		std::cout << "Input a number" << std::endl;
+		int num;
+		std::cin >> num;
+		std::cout << "Number found at the: " << BinSearch(test, num) << std::endl;
+		Help::ClearStream();
+	}
+}
 
 
 int main()
@@ -1074,7 +1150,7 @@ int main()
 		std::cout << "9.Dna stuff \n10.CollatzConjecture \n11.Nth Prime number \n12.Queen Attack \n" << std::endl;
 		std::cout << "13.NumToWords \n14.Gigaseconds \n15.Secret Handshake \n16.Allergies \n" << std::endl;
 		std::cout << "17.SumOfMulti \n18.Prime Factors \n19.RobotFactory \n20.Clock \n" << std::endl;
-		std::cout << "21.AtbashCipher  " << std::endl;
+		std::cout << "21.AtbashCipher \n22.Trinary \n23.BinaryTest " << std::endl;
 		
 		std::cin >> choice;
 		std::cout << '\n';
@@ -1145,6 +1221,13 @@ int main()
 		case 21:
 			AtbashCipher::Process();
 			break;
+		case 22:
+			Trinary::Process();
+			break;
+		case 23:
+			BinarySearch::Process();
+			break;
+
 		}
 
 
