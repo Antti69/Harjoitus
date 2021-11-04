@@ -6,6 +6,7 @@
 #include "Clock.h"
 #include "HelperFunc.h"
 #include <iterator>
+#include <list>
 
 
 void fpoint(void(*funct)(int), int a) //fuctio pointer harjoitteluu, tutki myöhemmin saako tällä mitään järkevää aikaseks
@@ -1090,34 +1091,37 @@ namespace Trinary
 
 namespace BinarySearch
 {
-	template<typename Container, typename T>
-	int BinSearch(Container cont, T val)
+	template<typename T>
+	auto BinSearch(T l, T r, int val)	//returns an iterator pointing to val, if not found return iterator pointing to end
 	{
-		auto l = std::begin(cont);
-		auto r = std::end(cont);
-		auto size = std::distance(l, r);
+		auto left = l;
+		auto right = r - 1;
 
-		int index = -1;
-		
-		while (l <= r)
+		while (l < r)
 		{
-			auto mid = l + (r - l) / 2;
-			if (*mid == val)
+			T mid = left + std::distance(left, right) / 2;
+			if (val == *mid)
 			{
-				index = *mid;
-				break;
+				return mid;
 			}
-			if (*mid < val)
+			if (val < *mid)
 			{
-				*l = *mid + 1;
+				right = mid;
 			}
-			if (*mid > val)
+			else
 			{
-				*r = *mid - 1;
+				left = mid;
 			}
 		}
-		return index;
+		return r;
 	}
+
+	template<typename Container>
+	auto BinSearch(Container const& cont, int val)	//template wrapper for difrent containers
+	{
+		return BinSearch(std::begin(cont), std::end(cont), val);
+	}
+
 	void Process()
 	{
 		std::vector<int> test;
@@ -1125,10 +1129,13 @@ namespace BinarySearch
 		{
 			test.push_back(i);
 		}
+	
+		int arr[] = { 1, 7, 12, 15, 17, 22, 25, 27, 35 };
+		auto beg = std::begin(arr);
 		std::cout << "Input a number" << std::endl;
 		int num;
 		std::cin >> num;
-		std::cout << "Number found at the: " << BinSearch(test, num) << std::endl;
+		std::cout << "Number found at the: " << BinSearch(arr, num) - beg << std::endl;
 		Help::ClearStream();
 	}
 }

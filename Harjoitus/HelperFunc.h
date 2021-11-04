@@ -36,7 +36,7 @@ namespace Help
 		}
 	}
 	template<typename T>
-	void PrintVec(const std::vector<T> out)
+	void PrintVec(const std::vector<T>& out)
 	{
 		for (auto& i : out)
 		{
@@ -44,4 +44,10 @@ namespace Help
 		}
 		ClearStream();
 	}
+	template<typename it>
+	void PrintCont(it begin, it end)
+	{
+
+	}
+
 }
