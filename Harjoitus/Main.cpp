@@ -1140,6 +1140,57 @@ namespace BinarySearch
 	}
 }
 
+namespace Series
+{
+	std::vector<std::string> GetSubstrings(const std::string& in, int count)
+	{
+		std::vector<std::string> out;
+		for (int b = 0, e = count - 1; e <= (int)in.size(); b++, e++)
+		{
+			std::string sub = in.substr(b, count);
+			if (sub.size() == count)
+			{
+				out.push_back(sub);
+			}
+			else
+			{
+				continue;
+			}
+		}
+		return out;
+	}
+	void Process()
+	{
+		std::string ser;
+		std::cout << "Input serial: " << std::endl;
+		std::cin >> ser;
+		if (std::cin.good())
+		{
+			std::cout << "All of the 3-digits series is: " << std::endl;
+			Help::PrintCont(GetSubstrings(ser, 3));
+			std::cout << "All of the 4-digits series is: " << std::endl;
+			Help::PrintCont(GetSubstrings(ser, 4));
+		}
+		else
+		{
+			std::cout << "Invalid input" << std::endl;
+			std::cout << '\n';
+		}
+		Help::ClearStream();
+	}
+}
+
+void testi()
+{
+	std::map<int, std::string> mapper = { {1,"asd"}, {2, "hefdg"}, {3, "jtfg"}, {4,"avvdfg"} };
+	std::list<int> lister = { 1, 2, 3, 4, 5 };
+	std::vector<std::string> t = { "ssdasd", "adsd", "asdasd", "asdasd" };
+	std::vector<int> tt = { 10, 15, 21, 22, 27, 30, 35, 40, 70, 80 };
+	Help::PrintCont(t);
+	Help::PrintCont(tt.begin(), tt.begin() + 4);
+	Help::PrintCont(lister);
+	
+}
 
 int main()
 {
@@ -1157,7 +1208,7 @@ int main()
 		std::cout << "9.Dna stuff \n10.CollatzConjecture \n11.Nth Prime number \n12.Queen Attack \n" << std::endl;
 		std::cout << "13.NumToWords \n14.Gigaseconds \n15.Secret Handshake \n16.Allergies \n" << std::endl;
 		std::cout << "17.SumOfMulti \n18.Prime Factors \n19.RobotFactory \n20.Clock \n" << std::endl;
-		std::cout << "21.AtbashCipher \n22.Trinary \n23.BinaryTest " << std::endl;
+		std::cout << "21.AtbashCipher \n22.Trinary \n23.BinaryTest \n24.Serial " << std::endl;
 		
 		std::cin >> choice;
 		std::cout << '\n';
@@ -1233,6 +1284,9 @@ int main()
 			break;
 		case 23:
 			BinarySearch::Process();
+			break;
+		case 24:
+			Series::Process();
 			break;
 
 		}

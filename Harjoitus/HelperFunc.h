@@ -44,10 +44,18 @@ namespace Help
 		}
 		ClearStream();
 	}
-	template<typename it>
-	void PrintCont(it begin, it end)
+
+
+	template<typename T>
+	void PrintCont(const T& beg, const T& end) //Prints Container with set range! Dont use on maps!
 	{
-
+		std::for_each(beg, end, [](auto& i) { std::cout << i << '\n'; });
+		ClearStream();
 	}
-
+	template<typename Cont>
+	void PrintCont(const Cont& cont) //Prints the whole Container! Dont use on maps!
+	{
+		PrintCont(std::begin(cont), std::end(cont));
+		ClearStream();
+	}
 }
