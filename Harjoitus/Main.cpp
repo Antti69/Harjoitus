@@ -1180,6 +1180,47 @@ namespace Series
 	}
 }
 
+namespace RomanNumerials
+{
+	std::string Translate(int input)
+	{
+		int num = input;
+		std::map<int, std::string> roman = { {1,"I"}, {4,"IV"}, {5,"V"}, {9,"IX"}, {10,"X"}, {40,"XL"}, {50,"L"},
+			{90,"XC"}, {100,"C"}, {400,"CD"}, {500,"D"}, {900,"CM"}, {1000,"M"} };
+		std::string out;
+		
+		auto it = roman.rbegin();
+
+		for (it; it != roman.rend(); it++)
+		{
+			while (num >= it->first)
+			{
+				num -= it->first;
+				out += it->second;
+			}
+		}
+		return out;
+	}
+
+
+	void Process()
+	{
+		int num;
+		std::cout << "Input a number: " << std::endl;
+		std::cin >> num;
+		if (std::cin.good())
+		{
+			std::cout << "Number in Roman is:" << Translate(num) << std::endl;
+		}
+		else
+		{
+			std::cout << "Invalid input" << std::endl;
+			std::cout << '\n';
+		}
+		Help::ClearStream();
+	}
+}
+
 void testi()
 {
 	std::map<int, std::string> mapper = { {1,"asd"}, {2, "hefdg"}, {3, "jtfg"}, {4,"avvdfg"} };
@@ -1209,6 +1250,7 @@ int main()
 		std::cout << "13.NumToWords \n14.Gigaseconds \n15.Secret Handshake \n16.Allergies \n" << std::endl;
 		std::cout << "17.SumOfMulti \n18.Prime Factors \n19.RobotFactory \n20.Clock \n" << std::endl;
 		std::cout << "21.AtbashCipher \n22.Trinary \n23.BinaryTest \n24.Serial " << std::endl;
+		std::cout << "25.Roman Numerials \n " << std::endl;
 		
 		std::cin >> choice;
 		std::cout << '\n';
@@ -1287,6 +1329,9 @@ int main()
 			break;
 		case 24:
 			Series::Process();
+			break;
+		case 25:
+			RomanNumerials::Process();
 			break;
 
 		}
