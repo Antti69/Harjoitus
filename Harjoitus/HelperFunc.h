@@ -13,6 +13,9 @@
 #include <ctime>
 #include <iomanip>
 #include <conio.h>
+#include <unordered_map>
+#include <iterator>
+#include <list>
 
 namespace Help
 {
@@ -58,4 +61,39 @@ namespace Help
 		PrintCont(std::begin(cont), std::end(cont));
 		ClearStream();
 	}
+
+	template<typename T>
+	void PrintAssociativeContainer(const T& beg, const T& end)
+	{
+		std::for_each(beg, end, [](std::pair<auto, auto>& i) { std::cout << i->first << ' ' << i->second << '\n'; });
+		ClearStream();
+	}
+
+	class StringSwitch
+	{
+	public:
+		std::function<void()>& Case(const std::string& str)
+		{
+			return map[str];
+		}
+		std::function<void()>& Default()
+		{
+			def();
+		}
+		void operator[](const std::string& str)
+		{
+			auto i = map.find(str);
+			if (i != map.end())
+			{
+				i->second();
+			}
+			else
+			{
+				def();
+			}
+		}
+	private:
+		std::unordered_map<std::string, std::function<void()>> map;
+		std::function<void()> def = []() {};
+	};
 }

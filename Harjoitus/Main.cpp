@@ -5,8 +5,7 @@
 #include "RobotFactory.h"
 #include "Clock.h"
 #include "HelperFunc.h"
-#include <iterator>
-#include <list>
+
 
 
 void fpoint(void(*funct)(int), int a) //fuctio pointer harjoitteluu, tutki myöhemmin saako tällä mitään järkevää aikaseks
@@ -1221,6 +1220,101 @@ namespace RomanNumerials
 	}
 }
 
+namespace Bob
+{
+	bool IsQuestion(const std::string& str)
+	{
+		return std::any_of(str.begin(), str.end(), [](const char& c) {return c == '?'; });
+	}
+	bool IsAllCapital(const std::string& str)
+	{
+		return std::all_of(str.begin(), str.end(), [](const char& c) {return std::isupper(c) || c == '?'; });
+	}
+	void Process()
+	{
+		std::string input;
+		std::cout << "Say somenthing" << std::endl;
+		std::cin >> input;
+		
+		if (IsQuestion(input) || IsAllCapital(input))
+		{
+			if (IsQuestion(input) && !IsAllCapital(input))
+			{
+				std::cout << "Sure" << std::endl;
+			}
+			else if (!IsQuestion(input) && IsAllCapital(input))
+			{
+				std::cout << "Whoa, chill out!" << std::endl;
+			}
+			else if (IsQuestion(input) && IsAllCapital(input))
+			{
+				std::cout << "Calm down, I know what I'm doing" << std::endl;
+			}
+		}
+		else if (input == "fuck you")
+		{
+			std::cout << "Fine. Be that way!" << std::endl;
+		}
+		else
+		{
+			std::cout << "Whatever!" << std::endl;
+		}
+		Help::ClearStream();
+	}
+}
+
+namespace WordCount
+{
+	std::unordered_map<std::string, int> CountWords(const std::string& in)
+	{
+		std::unordered_map<std::string, int> map;
+		std::string word = " ";
+		int count = 1;
+		
+		for (auto& i : in)
+		{
+			if (i == ' ')
+			{
+				auto t = map.find(word);
+				if (t != map.end())
+				{
+					t->second += 1;
+				}
+				else
+				{
+					std::pair<std::string, int> par(word, count);
+					map.insert(par);
+				}
+				word = ' ';
+			}
+			else
+			{
+				word += i;
+			}
+		}
+
+
+		return map;
+	}
+
+	void Process()
+	{
+		std::string input;
+		std::unordered_map<std::string, int> map;
+		std::cout << "Enter a sentence!" << std::endl;
+		do
+		{
+			std::getline(std::cin, input);
+
+		} while (std::cin.get() != '\n');
+
+
+		std::cout << "Count of words is: " << std::endl;
+		Help::PrintAssociativeContainer(map.begin(), map.end());
+		Help::ClearStream();
+	}
+}
+
 void testi()
 {
 	std::map<int, std::string> mapper = { {1,"asd"}, {2, "hefdg"}, {3, "jtfg"}, {4,"avvdfg"} };
@@ -1250,7 +1344,7 @@ int main()
 		std::cout << "13.NumToWords \n14.Gigaseconds \n15.Secret Handshake \n16.Allergies \n" << std::endl;
 		std::cout << "17.SumOfMulti \n18.Prime Factors \n19.RobotFactory \n20.Clock \n" << std::endl;
 		std::cout << "21.AtbashCipher \n22.Trinary \n23.BinaryTest \n24.Serial " << std::endl;
-		std::cout << "25.Roman Numerials \n " << std::endl;
+		std::cout << "25.Roman Numerials \n26.Bob \n27.Word Counter \n" << std::endl;
 		
 		std::cin >> choice;
 		std::cout << '\n';
@@ -1333,7 +1427,12 @@ int main()
 		case 25:
 			RomanNumerials::Process();
 			break;
-
+		case 26:
+			Bob::Process();
+			break;
+		case 27:
+			WordCount::Process();
+			break;
 		}
 
 
