@@ -16,6 +16,7 @@
 #include <unordered_map>
 #include <iterator>
 #include <list>
+#include <ranges>
 
 namespace Help
 {
