@@ -62,10 +62,13 @@ namespace Help
 		ClearStream();
 	}
 
-	template<typename T>
-	void PrintAssociativeContainer(const T& beg, const T& end)
+	template<typename Cont>
+	void PrintAssociativeContainer(const Cont& cont)
 	{
-		std::for_each(beg, end, [](std::pair<auto, auto>& i) { std::cout << i->first << ' ' << i->second << '\n'; });
+		for (const auto& i : cont)
+		{
+			std::cout << i.first << ' ' << i.second << std::endl;
+		}
 		ClearStream();
 	}
 

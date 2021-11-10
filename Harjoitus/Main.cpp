@@ -5,6 +5,7 @@
 #include "RobotFactory.h"
 #include "Clock.h"
 #include "HelperFunc.h"
+#include <regex>
 
 
 
@@ -1265,12 +1266,13 @@ namespace Bob
 
 namespace WordCount
 {
-	std::unordered_map<std::string, int> CountWords(const std::string& in)
+	std::unordered_map<std::string, int> CountWords(std::string& in)
 	{
+		std::transform(in.begin(), in.end(), in.begin(), ::tolower);
 		std::unordered_map<std::string, int> map;
 		std::string word = " ";
 		int count = 1;
-		
+		const std::string igword("\\w+([\\w']*\\w+)?!:;,.");
 		for (auto& i : in)
 		{
 			if (i == ' ')
@@ -1287,30 +1289,30 @@ namespace WordCount
 				}
 				word = ' ';
 			}
+			else if (std::any_of(igword.begin(), igword.end(), [&i](auto& t) {return i == t; }))
+			{
+				continue;
+			}
 			else
 			{
 				word += i;
 			}
 		}
-
-
 		return map;
 	}
 
 	void Process()
 	{
 		std::string input;
-		std::unordered_map<std::string, int> map;
 		std::cout << "Enter a sentence!" << std::endl;
+		Help::ClearStream();
 		do
 		{
 			std::getline(std::cin, input);
 
 		} while (std::cin.get() != '\n');
-
-
 		std::cout << "Count of words is: " << std::endl;
-		Help::PrintAssociativeContainer(map.begin(), map.end());
+		Help::PrintAssociativeContainer(CountWords(input));
 		Help::ClearStream();
 	}
 }
