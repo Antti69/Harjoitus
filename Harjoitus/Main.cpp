@@ -7,6 +7,7 @@
 #include "HelperFunc.h"
 #include <regex>
 #include <ranges>
+#include "CircularBuffer.h"
 
 namespace rg = std::ranges;
 
@@ -1324,6 +1325,63 @@ namespace WordCount
 	}
 }
 
+namespace CircularBufferTest
+{
+	void Procces()
+	{
+		CircularBuffer<std::string> cb(7);
+		std::vector<std::string> res;
+		int choice;
+		do
+		{
+			std::cout << "0.Back to main menu \n1.Write \n2.Read \n3.Clear \n4.Overwrite \n5.Check Buff \n6.Check Result" << std::endl;
+			std::cin >> choice;
+			std::cout << '\n';
+
+			switch (choice)
+			{
+			case 0:
+				break;
+			case 1:
+			{
+				std::string input;
+				std::cout << "Input number or word: " << std::endl;
+				std::cin >> input;
+				cb.Write(input);
+				break;
+			}
+			case 2:
+			{
+				std::string temp = cb.Read();
+				res.push_back(temp);
+				std::cout << "Readed a val: " << temp << std::endl;
+				break;
+			}
+				
+			case 3:
+				cb.Clear();
+				break;
+			case 4:
+			{
+				std::string input;
+				std::cout << "Input number or word:" << std::endl;
+				std::cin >> input;
+				cb.Overwrite(input);
+				break;
+			}
+			case 5:
+			{
+				Help::PrintCont(cb.CheckElements());
+				break;
+			}
+			case 6:
+				Help::PrintCont(res);
+				break;
+			}
+		} while (choice != 0);
+	}
+}
+
 void testi()
 {
 	std::map<int, std::string> mapper = { {1,"asd"}, {2, "hefdg"}, {3, "jtfg"}, {4,"avvdfg"} };
@@ -1352,8 +1410,8 @@ int main()
 		std::cout << "9.Dna stuff \n10.CollatzConjecture \n11.Nth Prime number \n12.Queen Attack \n" << std::endl;
 		std::cout << "13.NumToWords \n14.Gigaseconds \n15.Secret Handshake \n16.Allergies \n" << std::endl;
 		std::cout << "17.SumOfMulti \n18.Prime Factors \n19.RobotFactory \n20.Clock \n" << std::endl;
-		std::cout << "21.AtbashCipher \n22.Trinary \n23.BinaryTest \n24.Serial " << std::endl;
-		std::cout << "25.Roman Numerials \n26.Bob \n27.Word Counter \n" << std::endl;
+		std::cout << "21.AtbashCipher \n22.Trinary \n23.BinaryTest \n24.Serial \n " << std::endl;
+		std::cout << "25.Roman Numerials \n26.Bob \n27.Word Counter \n28.Circular Buff" << std::endl;
 		
 		std::cin >> choice;
 		std::cout << '\n';
@@ -1441,6 +1499,9 @@ int main()
 			break;
 		case 27:
 			WordCount::Process();
+			break;
+		case 28:
+			CircularBufferTest::Procces();
 			break;
 		}
 
