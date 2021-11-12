@@ -10,6 +10,7 @@
 #include "CircularBuffer.h"
 
 namespace rg = std::ranges;
+namespace vi = std::ranges::views;
 
 void fpoint(void(*funct)(int), int a) //fuctio pointer harjoitteluu, tutki myˆhemmin saako t‰ll‰ mit‰‰n j‰rkev‰‰ aikaseks
 									  //Leap year ja Space age k‰ytt‰‰ toistaseks..
@@ -1382,6 +1383,54 @@ namespace CircularBufferTest
 	}
 }
 
+
+namespace CryptoSquare
+{
+
+	std::string Encode(std::string& in)
+	{
+		std::string out;
+		std::string temp;
+		auto Normalized = in | vi::filter([](char c) {return std::isalpha(c); })
+			| vi::transform(::tolower);
+
+		for (auto i : Normalized)
+		{
+			temp.push_back(i);
+		}
+		int lenght = (int)temp.size();
+		int columns = (int)std::sqrt(lenght);
+		int rows = columns;
+		if (lenght % columns != 0)
+		{
+			columns += 1;
+		}
+
+		for (int r = 0; r < rows; r++)
+		{
+			for (int c = 0; c )
+		}
+
+		return out;
+	}
+	void Process()
+	{
+		std::string input;
+		std::cout << "Enter a sentence!" << std::endl;
+		Help::ClearStream();
+		do
+		{
+			std::getline(std::cin, input);
+
+		} while (std::cin.get() != '\n');
+
+		std::cout << "Test: " << Encode(input) << std::endl;
+		
+		Help::ClearStream();
+	}
+
+}
+
 void testi()
 {
 	std::map<int, std::string> mapper = { {1,"asd"}, {2, "hefdg"}, {3, "jtfg"}, {4,"avvdfg"} };
@@ -1412,6 +1461,7 @@ int main()
 		std::cout << "17.SumOfMulti \n18.Prime Factors \n19.RobotFactory \n20.Clock \n" << std::endl;
 		std::cout << "21.AtbashCipher \n22.Trinary \n23.BinaryTest \n24.Serial \n " << std::endl;
 		std::cout << "25.Roman Numerials \n26.Bob \n27.Word Counter \n28.Circular Buff" << std::endl;
+		std::cout << "29.CryptoSquare \n" << std::endl;
 		
 		std::cin >> choice;
 		std::cout << '\n';
@@ -1502,6 +1552,9 @@ int main()
 			break;
 		case 28:
 			CircularBufferTest::Procces();
+			break;
+		case 29:
+			CryptoSquare::Process();
 			break;
 		}
 
