@@ -1386,7 +1386,49 @@ namespace CircularBufferTest
 
 namespace CryptoSquare
 {
+	std::string Normalize(std::string& in)
+	{
+		std::string temp;
+		auto Normalized = in | vi::filter([](char c) {return std::isalpha(c); })
+			| vi::transform(::tolower);
 
+		for (auto i : Normalized)
+		{
+			temp.push_back(i);
+		}
+		return temp;
+	}
+	std::string EncodeTest(std::string& in)
+	{
+		std::string out;
+		std::string temp = Normalize(in);
+
+		int lenght = (int)temp.size();
+		int columns = (int)std::sqrt(lenght);
+		int rows = columns;
+		if (lenght % columns != 0)
+		{
+			columns += 1;
+		}
+		int sizecorrect = (rows * columns) - lenght;
+		int size = lenght + rows + sizecorrect;
+		for (int r = 0; r < rows + sizecorrect; r++)
+		{
+			temp.push_back(' ');
+		}
+		out.resize(size);
+		int i = 0;
+		for (int x = 0; x < rows; x++)
+		{
+			for (int y = 0; y < columns; y++)
+			{
+				int s = y * columns + x;
+				out[s] = temp[i];
+				i++;
+			}
+		}
+		return out;
+	}
 	std::string Encode(std::string& in)
 	{
 		std::string out;
@@ -1401,14 +1443,27 @@ namespace CryptoSquare
 		int lenght = (int)temp.size();
 		int columns = (int)std::sqrt(lenght);
 		int rows = columns;
+		int size = lenght + rows;
 		if (lenght % columns != 0)
 		{
 			columns += 1;
 		}
-
-		for (int r = 0; r < rows; r++)
+		out.resize(size);
+		int r = 0;
+		for (int i = 0, t = 0; i < size; t++)
 		{
-			for (int c = 0; c )
+			for (int c = t; c < lenght; c += columns)
+			{
+				out[i] = temp[c];
+				i++;
+				r++;
+				if (r == rows)
+				{
+					out[i] = ' ';
+					i++;
+					r = 0;
+				}
+			}
 		}
 
 		return out;
@@ -1424,7 +1479,7 @@ namespace CryptoSquare
 
 		} while (std::cin.get() != '\n');
 
-		std::cout << "Test: " << Encode(input) << std::endl;
+		std::cout << "Test: " << EncodeTest(input) << std::endl;
 		
 		Help::ClearStream();
 	}
