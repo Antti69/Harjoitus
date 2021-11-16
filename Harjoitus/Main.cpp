@@ -1398,7 +1398,7 @@ namespace CryptoSquare
 		}
 		return temp;
 	}
-	std::string EncodeTest(std::string& in)
+	std::string EncodeTest(std::string& in, char mark)
 	{
 		std::string out;
 		std::string temp = Normalize(in);
@@ -1406,27 +1406,53 @@ namespace CryptoSquare
 		int lenght = (int)temp.size();
 		int columns = (int)std::sqrt(lenght);
 		int rows = columns;
-		if (lenght % columns != 0)
+		int size = 0;
+		int rc = 0;
+		if (mark == 'e' && lenght % columns != 0)
 		{
 			columns += 1;
+			size = lenght + rows;
+			rc = rows;
+		}
+		else if (mark == 'd' && lenght % columns != 0)
+		{
+			rows += 1;
+			size = lenght + columns;
+			rc = columns;
 		}
 		int sizecorrect = (rows * columns) - lenght;
-		int size = lenght + rows + sizecorrect;
-		for (int r = 0; r < rows + sizecorrect; r++)
+		size += sizecorrect;
+		for (int r = 0; r < rc + sizecorrect; r++)
 		{
 			temp.push_back(' ');
 		}
 		out.resize(size);
 		int i = 0;
-		for (int x = 0; x < rows; x++)
+		if (mark == 'e')
 		{
-			for (int y = 0; y < columns; y++)
+			for (int x = 0; x < rows; x++)
 			{
-				int s = y * columns + x;
-				out[s] = temp[i];
-				i++;
+				for (int y = 0; y < columns; y++)
+				{
+					int s = y * columns + x;
+					out[s] = temp[i];
+					i++;
+				}
 			}
 		}
+		else if (mark == 'd')
+		{
+			for (int x = 0; x < rows; x++)
+			{
+				for (int y = 0; y < columns; y++)
+				{
+					int s = y * rows + x;
+					out[s] = temp[i];
+					i++;
+				}
+			}
+		}
+
 		return out;
 	}
 	std::string Encode(std::string& in)
@@ -1479,7 +1505,7 @@ namespace CryptoSquare
 
 		} while (std::cin.get() != '\n');
 
-		std::cout << "Test: " << EncodeTest(input) << std::endl;
+		std::cout << "Test: " << EncodeTest(input, 'd') << std::endl;
 		
 		Help::ClearStream();
 	}
