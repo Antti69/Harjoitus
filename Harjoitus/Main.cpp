@@ -1384,7 +1384,7 @@ namespace CircularBufferTest
 }
 
 
-namespace CryptoSquare
+namespace CryptoSquare //chaining functions with fpointers and char marks for the practice sake! Yeah not pretty but works!
 {
 	std::string Normalize(std::string& in)
 	{
@@ -1442,13 +1442,16 @@ namespace CryptoSquare
 		}
 		else if (mark == 'd')
 		{
-			for (int x = 0; x < rows; x++)
+			for (int y = 0; y < columns + 1; y++)
 			{
-				for (int y = 0; y < columns; y++)
+				for (int x = 0; x < rows; x++)
 				{
-					int s = y * rows + x;
-					out[s] = temp[i];
-					i++;
+					int s = x * rows + y;
+					if (s < lenght)
+					{
+						out[s] = temp[i];
+						i++;
+					}
 				}
 			}
 		}
@@ -1494,9 +1497,8 @@ namespace CryptoSquare
 
 		return out;
 	}
-	void Process()
+	void Process(std::string(*chain)(std::string&, char), std::string& input, char mark)
 	{
-		std::string input;
 		std::cout << "Enter a sentence!" << std::endl;
 		Help::ClearStream();
 		do
@@ -1504,10 +1506,51 @@ namespace CryptoSquare
 			std::getline(std::cin, input);
 
 		} while (std::cin.get() != '\n');
-
-		std::cout << "Test: " << EncodeTest(input, 'd') << std::endl;
-		
+		if (input.size() < 10)
+		{
+			std::cout << "invalid input" << std::endl;
+		}
+		else
+		{
+			if (mark == 'e')
+			{
+				std::cout << "Encrypted is: " << chain(input, 'e') << std::endl;
+			}
+			if (mark == 'd')
+			{
+				std::cout << "Decrypted is: " << chain(input, 'd') << std::endl;
+			}
+		}
 		Help::ClearStream();
+	}
+	void ProccesMenu()
+	{
+		int choice;
+		
+		do
+		{
+			std::cout << "0.Back to main menu \n1.Encrypt \n2.Decrypt " << std::endl;
+			std::cin >> choice;
+			std::cout << '\n';
+			switch (choice)
+			{
+			case 0:
+				break;
+			case 1:
+			{
+				std::string input;
+				Process(EncodeTest, input, 'e');
+				break;
+			}
+
+			case 2:
+			{
+				std::string input;
+				Process(EncodeTest, input, 'd');
+				break;
+			}
+			}
+		} while (choice != 0);
 	}
 
 }
@@ -1635,7 +1678,7 @@ int main()
 			CircularBufferTest::Procces();
 			break;
 		case 29:
-			CryptoSquare::Process();
+			CryptoSquare::ProccesMenu();
 			break;
 		}
 
