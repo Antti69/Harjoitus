@@ -1555,6 +1555,49 @@ namespace CryptoSquare //chaining functions with fpointers and char marks for th
 
 }
 
+namespace LuhnFormula
+{
+	bool Check(std::string& in)
+	{
+		
+		return false;
+		
+	}
+
+	std::string Caculate(std::string& in)
+	{
+		int num = 0;
+		for (auto i = in.size(); i > 0; i--)
+		{
+			char c = in[i];
+			num = static_cast<int>(c);
+			num *= 2;
+			if (num >= 10)
+			{
+				num -= 9;
+			}
+			
+		}
+		return in;
+	}
+
+	void Process()
+	{
+		
+		std::cout << "Input a number: " << std::endl;
+		std::string input;
+		do
+		{
+			std::getline(std::cin, input);
+
+		} while (std::cin.get() != '\n');
+
+		std::cout << Caculate(input) << std::endl;
+		Help::ClearStream();
+
+	}
+}
+
 void testi()
 {
 	std::map<int, std::string> mapper = { {1,"asd"}, {2, "hefdg"}, {3, "jtfg"}, {4,"avvdfg"} };
@@ -1585,7 +1628,7 @@ int main()
 		std::cout << "17.SumOfMulti \n18.Prime Factors \n19.RobotFactory \n20.Clock \n" << std::endl;
 		std::cout << "21.AtbashCipher \n22.Trinary \n23.BinaryTest \n24.Serial \n " << std::endl;
 		std::cout << "25.Roman Numerials \n26.Bob \n27.Word Counter \n28.Circular Buff" << std::endl;
-		std::cout << "29.CryptoSquare \n" << std::endl;
+		std::cout << "29.CryptoSquare \n30.LunhFormula \n" << std::endl;
 		
 		std::cin >> choice;
 		std::cout << '\n';
@@ -1679,6 +1722,9 @@ int main()
 			break;
 		case 29:
 			CryptoSquare::ProccesMenu();
+			break;
+		case 30:
+			LuhnFormula::Process();
 			break;
 		}
 
