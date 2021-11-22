@@ -20,6 +20,12 @@
 
 namespace Help
 {
+	bool IsOdd(int x)
+	{
+		return x % 2 == 0;
+	}
+
+
 	void ClearStream()
 	{
 		std::cin.clear();
