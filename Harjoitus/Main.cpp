@@ -1627,6 +1627,193 @@ namespace LuhnFormula
 	}
 }
 
+namespace Acronym
+{
+	std::string ParseAcronym(const std::string& in)
+	{
+		std::string out;
+		out.resize(1);
+		out[0] = in[0];
+		for (auto i = 0; i < in.size(); i++)
+		{
+			if (in[i] == ' ' && i < in.size() - 2)
+			{
+				out.push_back(in[static_cast<std::basic_string<char, std::char_traits<char>, std::allocator<char>>::size_type>(i) + 1]);
+			}
+		}
+		return out;
+	}
+	void Process()
+	{
+
+		std::cout << "Input a phrase: " << std::endl;
+		Help::ClearStream();
+		std::string input;
+		do
+		{
+			std::getline(std::cin, input);
+
+		} while (std::cin.get() != '\n');
+
+		std::cout << "Acronym is: " << ParseAcronym(input) << std::endl;
+		Help::ClearStream();
+
+	}
+}
+
+namespace AmstrongNumber
+{
+	bool IsAmsNum(int num)
+	{
+		std::string t = std::to_string(num);
+		int lenght = (int)t.size();
+		int base = 0;
+		int result = 0;
+		for (auto i : t)
+		{
+			base = i - '0';
+			result += (int)std::pow(base, lenght);
+		}
+		return num == result;
+	}
+	void Process()
+	{
+		int num;
+		std::cout << "Input a number: " << std::endl;
+		std::cin >> num;
+		if (std::cin.good())
+		{
+			if (IsAmsNum(num))
+			{
+				std::cout << "Number is an Amstrong number" << std::endl;
+				Help::ClearStream();
+			}
+			else
+			{
+				std::cout << "Number is Not an Amstrong number " << std::endl;
+				Help::ClearStream();
+			}
+		}
+		else
+		{
+			std::cout << "Invalid input" << std::endl;
+			std::cout << '\n';
+		}
+		Help::ClearStream();
+	}
+}
+
+namespace BinToDec
+{
+	bool ValidBin(const std::string& input)
+	{
+		return rg::all_of(input, [](char c) {return c == '0' || c == '1'; });
+	}
+	bool ValidHexa(const std::string& input)
+	{
+		return rg::all_of(input, [](char c) {return std::isxdigit(c); });
+	}
+	int BinToDecConverion(const std::string& input)
+	{
+		
+		int pow = (int)input.size() - 1;
+		int base = 2;
+		int num = 0;
+		int result = 0;
+		for (auto i : input)
+		{
+			num = i - '0';
+			result += num * (int)std::pow(base, pow);
+			pow--;
+		}
+		return result;
+	}
+	int HexaToDecConverion(std::string& input)
+	{
+		int pow = (int)input.size() - 1;
+		int base = 16;
+		int num = 0;
+		int result = 0;
+		for (auto i : input)
+		{
+			if (std::isdigit(i))
+			{
+				num = i - '0';
+			}
+			else
+			{
+				num = (i - 'A') + 10;
+			}
+			result += num * (int)std::pow(base, pow);
+			pow--;
+		}
+		return result;
+	}
+	void Process(char mark)
+	{
+		std::string num;
+		std::cout << "Input a number: " << std::endl;
+		std::cin >> num;
+		rg::transform(num, num.begin(), ::toupper);
+		if (mark == 'b' && ValidBin(num))
+		{
+			std::cout << "Binary to Decimal is: " << BinToDecConverion(num) << std::endl;
+			Help::ClearStream();
+		}
+		else if (mark == 'h' && ValidHexa(num))
+		{
+			std::cout << "Hexadecimal to Decimal is: " << HexaToDecConverion(num) << std::endl;
+			Help::ClearStream();
+		}
+		else
+		{
+			std::cout << "Invalid input" << std::endl;
+			std::cout << '\n';
+			Help::ClearStream();
+		}
+		Help::ClearStream();
+	}
+}
+
+namespace Isograms
+{
+	bool IsIsograms(const std::string& in)
+	{
+		bool isogram = true;
+		for (int i = 0; i < (int)in.size(); i++)
+		{
+			if (std::count(in.begin() + i, in.end(), in[i]) == 1)
+			{
+				isogram = true;
+			}
+			else
+			{
+				isogram = false;
+				break;
+			}
+		}
+		return isogram;
+	}
+	void Process()
+	{
+		std::string input;
+		std::cout << "Enter a phrase" << std::endl;
+		std::cin >> input;
+		Help::ClearStream();
+		if (IsIsograms(input))
+		{
+			std::cout << "Phrase is an Isogram!" << std::endl;
+			Help::ClearStream();
+		}
+		else
+		{
+			std::cout << "Phrase is NOT an Isogram!" << std::endl;
+			Help::ClearStream();
+		}
+		Help::ClearStream();
+	}
+}
+
 void testi()
 {
 	std::map<int, std::string> mapper = { {1,"asd"}, {2, "hefdg"}, {3, "jtfg"}, {4,"avvdfg"} };
@@ -1657,7 +1844,8 @@ int main()
 		std::cout << "17.SumOfMulti \n18.Prime Factors \n19.RobotFactory \n20.Clock \n" << std::endl;
 		std::cout << "21.AtbashCipher \n22.Trinary \n23.BinaryTest \n24.Serial \n " << std::endl;
 		std::cout << "25.Roman Numerials \n26.Bob \n27.Word Counter \n28.Circular Buff \n" << std::endl;
-		std::cout << "29.CryptoSquare \n30.LunhFormula \n" << std::endl;
+		std::cout << "29.CryptoSquare \n30.LunhFormula \n31.AcronymMaker \n32.Amstrong Number \n" << std::endl;
+		std::cout << "33.BinToDecimal \n34.HexaToDecimal \n35.Isogram \n" << std::endl;
 		
 		std::cin >> choice;
 		std::cout << '\n';
@@ -1754,6 +1942,21 @@ int main()
 			break;
 		case 30:
 			LuhnFormula::Process();
+			break;
+		case 31:
+			Acronym::Process();
+			break;
+		case 32:
+			AmstrongNumber::Process();
+			break;
+		case 33:
+			BinToDec::Process('b');
+			break;
+		case 34:
+			BinToDec::Process('h');
+			break;
+		case 35:
+			Isograms::Process();
 			break;
 		}
 
