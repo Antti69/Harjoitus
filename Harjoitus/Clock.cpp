@@ -2,8 +2,7 @@
 
 Clock::Clock()
 {
-	aika = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
-	localtime_s(&timebuffer, &aika);
+	UpdateTime();
 }
 
 void Clock::ProccesMenu()
@@ -66,4 +65,15 @@ void Clock::StopWatch()
 	std::cin.clear();
 	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	sec = 0;
+}
+
+void Clock::UpdateTime()
+{
+	aika = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+	localtime_s(&timebuffer, &aika);
+}
+
+time_t Clock::GetTime() const
+{
+	return aika;
 }

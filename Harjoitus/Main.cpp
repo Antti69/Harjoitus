@@ -1814,20 +1814,20 @@ namespace Isograms
 	}
 }
 
-void testi()
+void testi(float time)
 {
-	std::map<int, std::string> mapper = { {1,"asd"}, {2, "hefdg"}, {3, "jtfg"}, {4,"avvdfg"} };
-	std::list<int> lister = { 1, 2, 3, 4, 5 };
-	std::vector<std::string> t = { "ssdasd", "adsd", "asdasd", "asdasd" };
-	std::vector<int> tt = { 10, 15, 21, 22, 27, 30, 35, 40, 70, 80 };
-	Help::PrintCont(t);
-	Help::PrintCont(tt.begin(), tt.begin() + 4);
-	Help::PrintCont(lister);
-	
+
+	Clock clock;
+	int t = (int)clock.GetTime();
+	float i = time;
+	std::cout << t << "       " << i << std::endl;
+	Help::ClearStream();
+	Help::ClearStream();
 }
 
 int main()
 {
+	FrameTimer ft;
 	Database db;
 	ChessGrains c;
 	RobotFactory r;
@@ -1835,6 +1835,7 @@ int main()
 	QueenAttackTest::QueenAttack q;
 	Say s;
 	int choice;
+	float timer = 0;
 	do
 	{
 		std::cout << "Anna komento\n \n0.Exit \n1.Leap Year caculator\n2.String reverse\n3.Seconds to Year\n" << std::endl;
@@ -1845,10 +1846,11 @@ int main()
 		std::cout << "21.AtbashCipher \n22.Trinary \n23.BinaryTest \n24.Serial \n " << std::endl;
 		std::cout << "25.Roman Numerials \n26.Bob \n27.Word Counter \n28.Circular Buff \n" << std::endl;
 		std::cout << "29.CryptoSquare \n30.LunhFormula \n31.AcronymMaker \n32.Amstrong Number \n" << std::endl;
-		std::cout << "33.BinToDecimal \n34.HexaToDecimal \n35.Isogram \n" << std::endl;
+		std::cout << "33.BinToDecimal \n34.HexaToDecimal \n35.Isogram \n36.Test \n" << std::endl;
 		
 		std::cin >> choice;
 		std::cout << '\n';
+		timer += ft.Mark();
 		switch (choice)
 		{
 		case 0:
@@ -1957,6 +1959,9 @@ int main()
 			break;
 		case 35:
 			Isograms::Process();
+			break;
+		case 36:
+			testi(timer);
 			break;
 		}
 

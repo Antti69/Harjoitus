@@ -14,10 +14,13 @@ class Clock
 public:
 	Clock();
 	void ProccesMenu();
+	time_t GetTime() const;
 private:
 	void TellTime();
 	void ChangeTime();
 	void StopWatch();
+	void UpdateTime();
+	
 private:
 	time_t aika;
 	struct tm timebuffer;
