@@ -1814,16 +1814,38 @@ namespace Isograms
 	}
 }
 
-void testi(float time)
+int rng()
 {
-
+	FrameTimer ft;
+	double c = 0;
 	Clock clock;
-	int t = (int)clock.GetTime();
-	float i = time;
-	std::cout << t << "       " << i << std::endl;
+	double time = (double)clock.GetTime();
+	
+	time /= 100;
+	time = std::modf(time, &time);
+	time *= 100;
+	c += ft.Mark();
+	c *= 10.0;
+	time += c;
+	time *= 100000;
+	int s = (int)time;
+	s %= 100;
+	return s;
+}
+void testi()
+{
+	std::vector<int> tt;
+
+	for (int s = 0; s < 30; s++)
+	{
+		tt.push_back(rng());
+	}
+	Help::PrintCont(tt);
 	Help::ClearStream();
 	Help::ClearStream();
 }
+
+
 
 int main()
 {
@@ -1850,7 +1872,12 @@ int main()
 		
 		std::cin >> choice;
 		std::cout << '\n';
+		if (timer > 20.0f)
+		{
+			timer = 0;
+		}
 		timer += ft.Mark();
+
 		switch (choice)
 		{
 		case 0:
@@ -1961,7 +1988,7 @@ int main()
 			Isograms::Process();
 			break;
 		case 36:
-			testi(timer);
+			testi();
 			break;
 		}
 

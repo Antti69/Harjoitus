@@ -75,5 +75,6 @@ void Clock::UpdateTime()
 
 time_t Clock::GetTime() const
 {
+	
 	return aika;
 }
