@@ -24,4 +24,5 @@ private:
 private:
 	time_t aika;
 	struct tm timebuffer;
+	
 };

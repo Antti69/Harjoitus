@@ -24,9 +24,6 @@
     <ClCompile Include="SayNumbers.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="FrameTimer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="RobotFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

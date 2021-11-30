@@ -10,11 +10,11 @@ class Bencher
 public:
 	void Start()
 	{
-		ft.Mark();
+		ft.Mark<float>();
 	}
 	bool End()
 	{
-		const float dt = ft.Mark();
+		const float dt = ft.Mark<float>();
 		min = std::min(dt, min);
 		max = std::max(dt, max);
 		mean += dt / nSamples;

@@ -1817,18 +1817,16 @@ namespace Isograms
 int rng()
 {
 	FrameTimer ft;
-	double c = 0;
 	Clock clock;
 	double time = (double)clock.GetTime();
 	
 	time /= 100;
 	time = std::modf(time, &time);
 	time *= 100;
-	c += ft.Mark();
-	c *= 10.0;
-	time += c;
-	time *= 100000;
 	int s = (int)time;
+	long long int i = ft.GetNano();
+	i /= 256;
+	s += i;
 	s %= 100;
 	return s;
 }
@@ -1857,7 +1855,6 @@ int main()
 	QueenAttackTest::QueenAttack q;
 	Say s;
 	int choice;
-	float timer = 0;
 	do
 	{
 		std::cout << "Anna komento\n \n0.Exit \n1.Leap Year caculator\n2.String reverse\n3.Seconds to Year\n" << std::endl;
@@ -1872,11 +1869,6 @@ int main()
 		
 		std::cin >> choice;
 		std::cout << '\n';
-		if (timer > 20.0f)
-		{
-			timer = 0;
-		}
-		timer += ft.Mark();
 
 		switch (choice)
 		{

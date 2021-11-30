@@ -50,16 +50,18 @@ void Clock::ChangeTime()
 
 void Clock::StopWatch()
 {
+	
 	char start;
 	std::cout << "Press enter to start the Clock!" << std::endl;
 	std::cin >> start;
 	float sec = 0;
 	while (!_kbhit())
 	{
+		
 		FrameTimer ft;
 		std::cout << "Timer: " << sec << std::endl;
 		system("cls");
-		sec += ft.Mark();
+		sec += ft.Mark<float>();
 	}
 	std::cout << "Timer: " << sec << std::endl;
 	std::cin.clear();
