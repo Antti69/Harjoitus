@@ -33,7 +33,8 @@ void Clock::ProccesMenu()
 
 void Clock::TellTime()
 {
-	std::cout << std::put_time(&timebuffer, "%R") << std::endl;
+	UpdateTime();
+	std::cout << std::put_time(&timebuffer, "%T") << std::endl;
 }
 
 void Clock::ChangeTime()

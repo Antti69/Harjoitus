@@ -1823,18 +1823,18 @@ int rng()
 	time /= 100;
 	time = std::modf(time, &time);
 	time *= 100;
-	int s = (int)time;
-	long long int i = ft.GetNano();
-	i /= 256;
-	s += i;
-	s %= 100;
-	return s;
+	unsigned long long int s = (unsigned long long int)time;
+	unsigned long long int i = ft.GetNano();
+	s -= i;
+	s %= 1000;
+	int r = (int)s;
+	return r;
 }
 void testi()
 {
 	std::vector<int> tt;
 
-	for (int s = 0; s < 30; s++)
+	for (int s = 0; s < 100; s++)
 	{
 		tt.push_back(rng());
 	}

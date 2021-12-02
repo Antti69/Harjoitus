@@ -27,11 +27,11 @@ public:
 		const duration<int, std::nano> frameTime = last - old;
 		return frameTime.count();
 	}
-	long long int GetNano()
+	unsigned long long int GetNano()
 	{
 		using namespace std::chrono;
 		nanoseconds n(last.time_since_epoch());
-		long long int r = (long long int)n.count();
+		unsigned long long int r = (unsigned long long int)n.count();
 		return r;
 	}
 private:
