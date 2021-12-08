@@ -8,6 +8,7 @@
 #include <regex>
 #include <ranges>
 #include "CircularBuffer.h"
+#include <thread>
 
 namespace rg = std::ranges;
 namespace vi = std::ranges::views;
@@ -1818,15 +1819,33 @@ int rng()
 {
 	FrameTimer ft;
 	Clock clock;
+	int arr[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
 	double time = (double)clock.GetTime();
-	
+
+	std::thread::id t_thread = std::this_thread::get_id();
+	std::stringstream ttt;
+
+	ttt << t_thread;
+	unsigned long long  id = std::stoull(ttt.str());
+	ttt.clear();
 	time /= 100;
 	time = std::modf(time, &time);
 	time *= 100;
 	unsigned long long int s = (unsigned long long int)time;
 	unsigned long long int i = ft.GetNano();
-	s -= i;
-	s %= 1000;
+	std::string temp = std::to_string(i);
+	char c = temp.back();
+	int lastnano = c - '0';
+	std::stringstream mem;
+	mem << &arr[lastnano];
+	std::string memout;
+	mem >> memout;
+	int memval = BinToDec::HexaToDecConverion(memout);
+	mem.clear();
+	s += i;
+	s -= id;
+	s -= memval;
+	s %= 100;
 	int r = (int)s;
 	return r;
 }
@@ -1834,7 +1853,7 @@ void testi()
 {
 	std::vector<int> tt;
 
-	for (int s = 0; s < 100; s++)
+	for (int s = 0; s < 1000; s++)
 	{
 		tt.push_back(rng());
 	}

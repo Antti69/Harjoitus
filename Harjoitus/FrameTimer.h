@@ -8,6 +8,7 @@ public:
 	{
 		using namespace std::chrono;
 		last = steady_clock::now();
+		test = high_resolution_clock::now();
 	}
 	template<typename T>
 	T Mark()
@@ -30,11 +31,12 @@ public:
 	unsigned long long int GetNano()
 	{
 		using namespace std::chrono;
-		nanoseconds n(last.time_since_epoch());
+		nanoseconds n(test.time_since_epoch());
 		unsigned long long int r = (unsigned long long int)n.count();
 		return r;
 	}
 private:
 	std::chrono::steady_clock::time_point last;
+	std::chrono::high_resolution_clock::time_point test;
 };
 
