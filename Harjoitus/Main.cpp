@@ -1729,12 +1729,13 @@ namespace BinToDec
 		}
 		return result;
 	}
-	int HexaToDecConverion(std::string& input)
+	template<typename T>
+	T HexaToDecConverion(std::string& input)
 	{
-		int pow = (int)input.size() - 1;
-		int base = 16;
-		int num = 0;
-		int result = 0;
+		T pow = (T)input.size() - 1;
+		T base = 16;
+		T num = 0;
+		T result = 0;
 		for (auto i : input)
 		{
 			if (std::isdigit(i))
@@ -1745,7 +1746,7 @@ namespace BinToDec
 			{
 				num = (i - 'A') + 10;
 			}
-			result += num * (int)std::pow(base, pow);
+			result += num * (T)std::pow(base, pow);
 			pow--;
 		}
 		return result;
@@ -1763,7 +1764,7 @@ namespace BinToDec
 		}
 		else if (mark == 'h' && ValidHexa(num))
 		{
-			std::cout << "Hexadecimal to Decimal is: " << HexaToDecConverion(num) << std::endl;
+			std::cout << "Hexadecimal to Decimal is: " << HexaToDecConverion<int>(num) << std::endl;
 			Help::ClearStream();
 		}
 		else
@@ -1824,24 +1825,26 @@ int rng()
 
 	std::thread::id t_thread = std::this_thread::get_id();
 	std::stringstream ttt;
-
 	ttt << t_thread;
-	unsigned long long  id = std::stoull(ttt.str());
-	ttt.clear();
+	unsigned long long int id = std::stoull(ttt.str());
+
 	time /= 100;
 	time = std::modf(time, &time);
 	time *= 100;
 	unsigned long long int s = (unsigned long long int)time;
+
 	unsigned long long int i = ft.GetNano();
 	std::string temp = std::to_string(i);
 	char c = temp.back();
 	int lastnano = c - '0';
+
 	std::stringstream mem;
 	mem << &arr[lastnano];
-	std::string memout;
-	mem >> memout;
-	int memval = BinToDec::HexaToDecConverion(memout);
-	mem.clear();
+	std::string memtemp;
+	mem >> memtemp;
+	std::string memout = memtemp.substr(8, std::string::npos);
+	unsigned long long int memval = BinToDec::HexaToDecConverion<unsigned long long int>(memout);
+
 	s += i;
 	s -= id;
 	s -= memval;
@@ -1852,12 +1855,18 @@ int rng()
 void testi()
 {
 	std::vector<int> tt;
-
-	for (int s = 0; s < 1000; s++)
+	Bencher b;
+	b.Start();
+	for (int s = 0; s < 1000000; s++)
 	{
 		tt.push_back(rng());
 	}
-	Help::PrintCont(tt);
+	if (b.End())
+	{
+		std::wofstream out(L"Ben.txt");
+		out << std::wstring(b);
+	}
+	//Help::PrintCont(tt);
 	Help::ClearStream();
 	Help::ClearStream();
 }
