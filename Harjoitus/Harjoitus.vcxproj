@@ -156,6 +156,7 @@
     <ClInclude Include="Database.h" />
     <ClInclude Include="FrameTimer.h" />
     <ClInclude Include="HelperFunc.h" />
+    <ClInclude Include="Rng.h" />
     <ClInclude Include="RobotFactory.h" />
     <ClInclude Include="SayNumbers.h" />
     <ClInclude Include="Vec2.h" />

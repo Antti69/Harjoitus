@@ -9,6 +9,7 @@
 #include <ranges>
 #include "CircularBuffer.h"
 #include <thread>
+#include "Rng.h"
 
 namespace rg = std::ranges;
 namespace vi = std::ranges::views;
@@ -1854,12 +1855,13 @@ int rng()
 }
 void testi()
 {
+	Rng r;
 	std::vector<int> tt;
 	Bencher b;
 	b.Start();
-	for (int s = 0; s < 1000000; s++)
+	for (int s = 0; s < 100000; s++)
 	{
-		tt.push_back(rng());
+		tt.push_back(r.rng(0, 100));
 	}
 	if (b.End())
 	{
