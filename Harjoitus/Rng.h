@@ -73,16 +73,16 @@ public:
 
 		uint64_t nanotimer = ft.GetNano();				//Getting timer value in nanoseconds
 		std::string temp = std::to_string(nanotimer);
-		char c = temp.back();
-		int lastnano = c - '0';				//Saving the last number of the timer
-		char c2 = temp[temp.size() - 2];
+		char c = temp[temp.size() - 3];
+		int lastnano = c - '0';				//Saving some numbers of the timer
+		char c2 = temp[temp.size() - 4];
 		int lastnano2 = c2 - '0';
 
 		std::stringstream mem;			//Getting dummy array adress value in hexa based on the lastnano, and converting to uint64 decimal value
 		mem << &arr[lastnano];
 		std::string memtemp;
 		mem >> memtemp;
-		std::string memout = memtemp.substr(8, std::string::npos);  //Discarding first 8 hexa numbers
+		std::string memout = memtemp.substr(8, std::string::npos);  //Discarding first 8 hexa numbers, they are usualy the same
 		uint64_t memval = HexaToDecConverion<uint64_t >(memout);
 		std::stringstream mem2;			
 		mem2 << &arr2[lastnano2];
@@ -90,11 +90,13 @@ public:
 		mem2 >> memtemp2;
 		std::string memout2 = memtemp2.substr(8, std::string::npos);  
 		uint64_t memval2 = HexaToDecConverion<uint64_t >(memout2);
+		//1475085103574000	
 
-		cumval = nanotimer / cumval;				//Mixing all of the values together
+		cumval = nanotimer / cumval;				//Mixing all the values together
+		cumval /= 4;
 		cumval -= id;
 		cumval -= memval;
-		cumval -= memval2;
+		cumval -= memval2; 
 
 		cumval %= max;						//Targeting the output range
 		int output = (int)cumval;
