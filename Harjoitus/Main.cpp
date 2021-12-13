@@ -1859,7 +1859,7 @@ void testi()
 	std::vector<int> tt;
 	Bencher b;
 	b.Start();
-	for (int s = 0; s < 100000; s++)
+	for (int s = 0; s < 1000000; s++)
 	{
 		tt.push_back(r.rng(0, 100));
 	}

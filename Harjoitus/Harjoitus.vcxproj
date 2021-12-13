@@ -145,6 +145,10 @@
     <ClCompile Include="Clock.cpp" />
     <ClCompile Include="Database.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Rng.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Disabled</Optimization>
+      <IntrinsicFunctions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</IntrinsicFunctions>
+    </ClCompile>
     <ClCompile Include="RobotFactory.cpp" />
     <ClCompile Include="SayNumbers.cpp" />
   </ItemGroup>
