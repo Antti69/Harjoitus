@@ -8,6 +8,7 @@
 #include <sstream>
 #include <thread>
 
+#include <random>
 #include <iostream>
 
 class FrameTimerRng
@@ -22,7 +23,7 @@ public:
 	{
 		using namespace std::chrono;
 		nanoseconds n(highlast.time_since_epoch());
-		uint64_t  r = (uint64_t)n.count();
+		uint64_t r = (uint64_t)n.count();
 		return r;
 		
 	}
@@ -56,7 +57,7 @@ class Rng
 {
 public:
 	int rng(int min, int max);
-	int rngtest(int min, int max);
+	unsigned int rngtest(unsigned int min, unsigned int max);
 private:
 	template<typename T>
 	T HexaToDecConverion(const std::string& input)
@@ -83,4 +84,6 @@ private:
 
 private:
 	ClockRng clock;
+	std::random_device rd;
+	std::mt19937 rg{ rd() };
 };

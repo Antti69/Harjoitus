@@ -17,7 +17,7 @@ int Rng::rng(int min, int max)
 	time = std::modf(time, &time);
 	time *= 100;
 	time += 1;
-	uint64_t cumval = (uint64_t)time;
+	uint64_t cumulativeval = (uint64_t)time;
 
 	uint64_t nanotimer = ft.GetNano();				//Getting timer value in nanoseconds
 	std::string temp = std::to_string(nanotimer);
@@ -36,21 +36,20 @@ int Rng::rng(int min, int max)
 	mem2 << &arr2[lastnano2];
 	std::string memtemp2;
 	mem2 >> memtemp2;
-	std::string memout2 = memtemp2.substr(14, std::string::npos);
+	std::string memout2 = memtemp2.substr(14, std::string::npos);   //Discarding first 14 hexa numbers
 	uint64_t memval2 = HexaToDecConverion<uint64_t >(memout2);
-	//1475085103574000	
 	if (memval2 == 0 || memval == 1)
 	{
 		memval2 = 2;
 	}
 
-	cumval += nanotimer;				//Mixing all the values together
-	cumval -= id;
-	cumval += memval;
-	cumval /= memval2;
+	cumulativeval += nanotimer;				//Mixing all the values together
+	cumulativeval -= id;
+	cumulativeval += memval;
+	cumulativeval /= memval2;
 
-	cumval %= max;						//Targeting the output range
-	int output = (int)cumval;
+	cumulativeval %= max;						//Targeting the output range
+	int output = (int)cumulativeval;
 
 	if (output < min)					//if val is below min doing recursion
 	{
@@ -60,12 +59,19 @@ int Rng::rng(int min, int max)
 	return output;
 }
 
-int Rng::rngtest(int min, int max)
+unsigned int Rng::rngtest(unsigned int min, unsigned int max)
 {
-	FrameTimerRng ft;
-	uint64_t nanotimer = ft.GetNano();
-	nanotimer %= max;
-	std::cout << " " << std::endl;
-	int out = (int)nanotimer;
+	//FrameTimerRng ft;
+	//uint64_t nanotimer = ft.GetNano();
+	//nanotimer %= max;
+	//std::cout << " " << std::endl;
+	//int out = (int)nanotimer;
+
+	unsigned int out = rg();
+	out %= max;
+	if (out < min || out > max)
+	{
+		rngtest(min, max);
+	}
 	return out;
 }

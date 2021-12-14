@@ -1859,16 +1859,16 @@ void testi()
 	std::vector<int> tt;
 	Bencher b;
 	b.Start();
-	for (int s = 0; s < 1000000; s++)
+	for (int s = 0; s < 1000; s++)
 	{
-		tt.push_back(r.rng(0, 100));
+		tt.push_back(r.rng(0, 10000));
 	}
 	if (b.End())
 	{
 		std::wofstream out(L"Ben.txt");
 		out << std::wstring(b);
 	}
-	//Help::PrintCont(tt);
+	Help::PrintCont(tt);
 	Help::ClearStream();
 	Help::ClearStream();
 }
