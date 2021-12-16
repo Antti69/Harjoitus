@@ -1859,9 +1859,9 @@ void testi()
 	std::vector<int> tt;
 	Bencher b;
 	b.Start();
-	for (int s = 0; s < 1000; s++)
+	for (int s = 0; s < 100; s++)
 	{
-		tt.push_back(r.rng(0, 10000));
+		tt.push_back(r.rngtest(0, 100));
 	}
 	if (b.End())
 	{

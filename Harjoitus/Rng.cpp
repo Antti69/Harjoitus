@@ -61,12 +61,6 @@ int Rng::rng(int min, int max)
 
 unsigned int Rng::rngtest(unsigned int min, unsigned int max)
 {
-	//FrameTimerRng ft;
-	//uint64_t nanotimer = ft.GetNano();
-	//nanotimer %= max;
-	//std::cout << " " << std::endl;
-	//int out = (int)nanotimer;
-
 	unsigned int out = rg();
 	out %= max;
 	if (out < min || out > max)

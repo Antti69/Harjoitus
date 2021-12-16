@@ -27,6 +27,10 @@ public:
 		return r;
 		
 	}
+	auto GetHighLast() const
+	{
+		return highlast;
+	}
 private:
 	std::chrono::high_resolution_clock::time_point highlast;
 };
@@ -84,6 +88,5 @@ private:
 
 private:
 	ClockRng clock;
-	std::random_device rd;
-	std::mt19937 rg{ rd() };
+	std::mt19937 rg{ (unsigned int)std::chrono::high_resolution_clock::now().time_since_epoch().count() };
 };
