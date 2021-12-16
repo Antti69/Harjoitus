@@ -1855,6 +1855,9 @@ int rng()
 }
 void testi()
 {
+	int i = 6;								//  0  1  2  3 
+	int x = i % 4;							//  4  5  6  7
+	int y = i / 4;
 	Rng r;
 	std::vector<int> tt;
 	Bencher b;
