@@ -1864,7 +1864,7 @@ void testi()
 	b.Start();
 	for (int s = 0; s < 100; s++)
 	{
-		tt.push_back(r.rngtest(0, 100));
+		tt.push_back(r.rngtest(-1000, 1000));
 	}
 	if (b.End())
 	{

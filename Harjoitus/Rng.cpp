@@ -59,13 +59,11 @@ int Rng::rng(int min, int max)
 	return output;
 }
 
-unsigned int Rng::rngtest(unsigned int min, unsigned int max)
+int Rng::rngtest(int min, int max)
 {
-	unsigned int out = rg();
-	out %= max;
-	if (out < min || out > max)
-	{
-		rngtest(min, max);
-	}
-	return out;
+	int range = max - min + 1;
+	uint64_t out = rg();
+	out %= range;
+	out += min;
+	return (int)out;
 }

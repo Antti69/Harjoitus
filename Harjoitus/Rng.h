@@ -61,7 +61,7 @@ class Rng
 {
 public:
 	int rng(int min, int max);
-	unsigned int rngtest(unsigned int min, unsigned int max);
+	int rngtest(int min, int max);
 private:
 	template<typename T>
 	T HexaToDecConverion(const std::string& input)
