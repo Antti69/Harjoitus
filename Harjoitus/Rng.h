@@ -90,3 +90,13 @@ private:
 	ClockRng clock;
 	std::mt19937 rg{ (unsigned int)std::chrono::high_resolution_clock::now().time_since_epoch().count() };
 };
+
+
+class Rng1
+{
+public:
+	int CreateInt(int min, int max);
+	float CreateFloat(float min, float max);
+private:
+	std::mt19937 rg{ (unsigned int)std::chrono::high_resolution_clock::now().time_since_epoch().count() };
+};

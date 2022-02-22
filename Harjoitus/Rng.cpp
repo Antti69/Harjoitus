@@ -67,3 +67,29 @@ int Rng::rngtest(int min, int max)
 	out += min;
 	return (int)out;
 }
+
+int Rng1::CreateInt(int min, int max)
+{
+	int range = max - min + 1;
+	uint64_t out = rg();
+	out %= range;
+	out += min;
+	return (int)out;
+}
+
+float Rng1::CreateFloat(float min, float max)
+{
+	float out = 0.0f;
+	int firstnum = CreateInt((int)min, (int)max);
+	int floatnumb = CreateInt(0, 99);
+	if (floatnumb != 0)
+	{
+		float decimals = floatnumb /= 100;
+		out = firstnum + decimals;
+	}
+	else
+	{
+		out = (float)floatnumb;
+	}
+	return out;
+}
