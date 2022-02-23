@@ -1,4 +1,4 @@
 Sample size: 1
-Mean: 111255ms
-Min: 111255ms
-Max: 111255ms
+Mean: 87.7289ms
+Min: 87.7289ms
+Max: 87.7289ms

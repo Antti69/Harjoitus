@@ -149,6 +149,7 @@
       <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Disabled</Optimization>
       <IntrinsicFunctions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</IntrinsicFunctions>
     </ClCompile>
+    <ClCompile Include="RngTests.cpp" />
     <ClCompile Include="RobotFactory.cpp" />
     <ClCompile Include="SayNumbers.cpp" />
   </ItemGroup>
@@ -161,6 +162,7 @@
     <ClInclude Include="FrameTimer.h" />
     <ClInclude Include="HelperFunc.h" />
     <ClInclude Include="Rng.h" />
+    <ClInclude Include="RngTests.h" />
     <ClInclude Include="RobotFactory.h" />
     <ClInclude Include="SayNumbers.h" />
     <ClInclude Include="Vec2.h" />

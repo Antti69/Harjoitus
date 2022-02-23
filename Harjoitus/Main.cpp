@@ -10,6 +10,7 @@
 #include "CircularBuffer.h"
 #include <thread>
 #include "Rng.h"
+#include "RngTests.h"
 
 namespace rg = std::ranges;
 namespace vi = std::ranges::views;
@@ -1858,20 +1859,25 @@ void testi()
 	int i = 6;								//  0  1  2  3 
 	int x = i % 4;							//  4  5  6  7
 	int y = i / 4;
-	Rng r;
+	RngTest r;
+	Rng1 r1;
 	std::vector<int> tt;
 	Bencher b;
 	b.Start();
-	for (int s = 0; s < 100; s++)
+	for (int s = 0; s < 1000000; s++)
 	{
-		tt.push_back(r.rngtest(-1000, 1000));
+		tt.push_back(r1.CreateInt(0, 100));
 	}
+	//for (int s = 0; s < 1000000; s++)
+	//{
+	//	tt.push_back(r.rngtest(0, 100));
+	//}
 	if (b.End())
 	{
 		std::wofstream out(L"Ben.txt");
 		out << std::wstring(b);
 	}
-	Help::PrintCont(tt);
+	//Help::PrintCont(tt);
 	Help::ClearStream();
 	Help::ClearStream();
 }
@@ -1887,6 +1893,7 @@ int main()
 	Clock clock;
 	QueenAttackTest::QueenAttack q;
 	Say s;
+	Rng1 r2;
 	int choice;
 	do
 	{
