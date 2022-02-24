@@ -1862,12 +1862,20 @@ void testi()
 	RngTest r;
 	Rng1 r1;
 	std::vector<int> tt;
+	std::vector<int> ttt;
 	Bencher b;
 	b.Start();
-	for (int s = 0; s < 1000000; s++)
+	//std::cout << r1.CreateString(2000) << std::endl;
+	for (int s = 0; s < 100; s++)
 	{
-		tt.push_back(r1.CreateInt(0, 100));
+		tt.push_back(r1.CreateInt(0, 100, true));
 	}
+	//r1.ReSeed();
+
+	//for (int s = 0; s < 10; s++)
+	//{
+	//	ttt.push_back(r1.CreateInt(0, 100));
+	//}
 	//for (int s = 0; s < 1000000; s++)
 	//{
 	//	tt.push_back(r.rngtest(0, 100));
@@ -1877,7 +1885,8 @@ void testi()
 		std::wofstream out(L"Ben.txt");
 		out << std::wstring(b);
 	}
-	//Help::PrintCont(tt);
+	Help::PrintCont(tt);
+	/*Help::PrintCont(ttt);*/
 	Help::ClearStream();
 	Help::ClearStream();
 }
@@ -1893,10 +1902,11 @@ int main()
 	Clock clock;
 	QueenAttackTest::QueenAttack q;
 	Say s;
-	Rng1 r2;
+	
 	int choice;
 	do
 	{
+		Rng1 r2;
 		std::cout << "Anna komento\n \n0.Exit \n1.Leap Year caculator\n2.String reverse\n3.Seconds to Year\n" << std::endl;
 		std::cout << "4.ChessGrain \n5.RainDrop \n6.Pangram \n7.TwoFer \n8.Grade School \n" << std::endl;
 		std::cout << "9.Dna stuff \n10.CollatzConjecture \n11.Nth Prime number \n12.Queen Attack \n" << std::endl;
@@ -2021,6 +2031,7 @@ int main()
 			break;
 		case 36:
 			testi();
+			//std::cout << r2.test << std::endl;
 			break;
 		}
 
