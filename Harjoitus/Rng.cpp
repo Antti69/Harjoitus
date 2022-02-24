@@ -14,19 +14,19 @@ int Rng1::CreateInt(int min, int max, bool NormalDistr)
 		out += min;
 	}
 	NormalDistProbabilityRange r = GetRange((int)out, range);
-	if (!NormalDistr || r == NormalDistProbabilityRange::HighProbability || countertest >= 4)
+	if (!NormalDistr || r == NormalDistProbabilityRange::HighProbability || countertest >= 2)
 	{
 		return (int)out;
 	}
 	else if (r == NormalDistProbabilityRange::MediumProbability)
 	{
 		countertest += 2;
-		CreateInt(min, max);
+		CreateInt(min, max, true);
 	}
 	else if (r == NormalDistProbabilityRange::LowProbability)
 	{
 		countertest++;
-		CreateInt(min, max);
+		CreateInt(min, max, true);
 	}
 	countertest = 0;
 	return (int)out;
@@ -166,7 +166,7 @@ Rng1::NormalDistProbabilityRange Rng1::GetRange(int num, int range)
 	int highrange = range / 5;
 	int mediumrange = (range / 5) * 2;
 
-	if (num > mid - highrange && num < mid + highrange)
+	if (num >= mid - highrange && num <= mid + highrange)
 	{
 		r = NormalDistProbabilityRange::HighProbability;
 	}
@@ -174,7 +174,7 @@ Rng1::NormalDistProbabilityRange Rng1::GetRange(int num, int range)
 	{
 		r = NormalDistProbabilityRange::MediumProbability;
 	}
-	else if (num < mid - mediumrange || num > mid + mediumrange)
+	else if (num <= mid - mediumrange || num >= mid + mediumrange)
 	{
 		r = NormalDistProbabilityRange::LowProbability;
 	}
