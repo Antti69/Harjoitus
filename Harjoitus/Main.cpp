@@ -1860,8 +1860,8 @@ void testi()
 	Rng1 r1;
 	std::vector<int> tt;
 	std::vector<int> ttt;
-	int min = 0;
-	int max = 100;
+	int min = -100;
+	int max = 300;
 	int range = max - min;
 	int mid = range / 2;
 	int lou = range / 10;
@@ -1874,7 +1874,7 @@ void testi()
 	{
 		tt.push_back(r1.CreateInt(min, max, true));
 	}
-
+	rg::sort(tt);
 	int l = 0;
 	int m = 0;
 	int h = 0;
