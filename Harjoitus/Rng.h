@@ -17,7 +17,7 @@ class Rng1
 {
 public:
 	int CreateInt(int min, int max, bool NormalDistr = false);			//Other Create functions will call this one
-	float CreateFloat(float min, float max);							//Use range as two decimal or less
+	float CreateFloat(float min, float max, bool NormalDistr = false);	//Use range as two decimal or less
 	unsigned char CreateChar();											//Based on custom Ascci table
 	std::string CreateString(int lenght);
 	void ReSeed();

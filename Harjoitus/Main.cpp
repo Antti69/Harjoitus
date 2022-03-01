@@ -1858,29 +1858,29 @@ void testi()
 {
 
 	Rng1 r1;
-	std::vector<int> tt;
+	std::vector<float> tt;
 	std::vector<int> ttt;
-	int min = -100;
-	int max = 300;
-	int range = max - min;
-	int mid = range / 2;
-	int lou = range / 10;
-	int meu = lou * 2;
-	int hie = range / 3;
+	auto min = 1.5f;
+	auto max = 3.5f;
+	auto range = max - min;
+	auto mid = range / 2 + min;
+	auto lou = range / 10;
+	auto meu = lou * 2;
+	auto hie = range / 3;
 	Bencher b;
 	b.Start();
 	//std::cout << r1.CreateString(2000) << std::endl;
 	for (int s = 0; s < 100; s++)
 	{
-		tt.push_back(r1.CreateInt(min, max, true));
+		tt.push_back(r1.CreateFloat(min, max));
 	}
 	rg::sort(tt);
 	int l = 0;
 	int m = 0;
 	int h = 0;
-	auto loww = tt | vi::filter([&](int num) {return num <= min + lou || num >= max - lou; });
-	auto med = tt | vi::filter([&](int num) {return (num > min + lou && num < mid - meu) || (num > mid + meu && num < max - lou); });
-	auto high = tt | vi::filter([&](int num) {return num >= mid - meu && num <= mid + meu; });
+	auto loww = tt | vi::filter([&](auto num) {return num <= min + lou || num >= max - lou; });
+	auto med = tt | vi::filter([&](auto num) {return (num > min + lou && num < mid - meu) || (num > mid + meu && num < max - lou); });
+	auto high = tt | vi::filter([&](auto num) {return num >= mid - meu && num <= mid + meu; });
 	for (auto& i : loww)
 	{
 		l++;

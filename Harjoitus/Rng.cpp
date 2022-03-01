@@ -24,15 +24,19 @@ int Rng1::CreateInt(int min, int max, bool NormalDistr)
 	return (int)out;
 }
 
-float Rng1::CreateFloat(float min, float max)
+float Rng1::CreateFloat(float min, float max, bool NormalDistr)
 {
 	float out = 0.0f;
 	float range = max - min;
 	float decimals = 0.0f;
-	int firstnum = CreateInt(0, (int)range);
+	int firstnum = CreateInt(0, (int)range, NormalDistr);
 	float decimalrange = std::modff(range, &decimalrange);
 	decimalrange *= 100.0f;
-	int floatnumb = CreateInt(0, (int)decimalrange);
+	if (decimalrange < 0.01f)
+	{
+		decimalrange += 100.0f;
+	}
+	int floatnumb = CreateInt(0, (int)decimalrange, NormalDistr);
 	if (floatnumb != 0)
 	{
 		decimals = (float)floatnumb / 100.0f;
