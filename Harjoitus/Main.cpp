@@ -1857,11 +1857,11 @@ int rng()
 void testi()
 {
 
-	Rng1 r1;
+	Rng r1;
 	std::vector<float> tt;
 	std::vector<int> ttt;
-	auto min = 1.5f;
-	auto max = 3.5f;
+	auto min = 0.0f;
+	auto max = 10.0f;
 	auto range = max - min;
 	auto mid = range / 2 + min;
 	auto lou = range / 10;
@@ -1869,10 +1869,10 @@ void testi()
 	auto hie = range / 3;
 	Bencher b;
 	b.Start();
-	//std::cout << r1.CreateString(2000) << std::endl;
+	std::cout << r1.CreateString(2000, true) << std::endl;
 	for (int s = 0; s < 100; s++)
 	{
-		tt.push_back(r1.CreateFloat(min, max));
+		tt.push_back(r1.CreateFloat(min, max, true));
 	}
 	rg::sort(tt);
 	int l = 0;
@@ -1897,22 +1897,8 @@ void testi()
 	std::cout << "Lows: " << l << std::endl;
 	std::cout << "Meds: " << m << std::endl;
 	std::cout << "Highs: " << h << std::endl;
-	//std::copy_if(tt.begin(), tt.end(), low.begin(), [](int num) {return num <= 10 || num >= 90; });
-	//std::copy_if(tt.begin(), tt.end(), med.begin(), [](int num) {return (num > 10 && num < 30) || num > 70 && num < 90; });
-	//std::copy_if(tt.begin(), tt.end(), high.begin(), [](int num) {return num >= 30 || num <= 70; });
-	//std::cout << low.size() << std::endl;
-	//std::cout << med.size() << std::endl;
-	//std::cout << high.size() << std::endl;
-	//r1.ReSeed();
 
-	//for (int s = 0; s < 10; s++)
-	//{
-	//	ttt.push_back(r1.CreateInt(0, 100));
-	//}
-	//for (int s = 0; s < 1000000; s++)
-	//{
-	//	tt.push_back(r.rngtest(0, 100));
-	//}
+
 	if (b.End())
 	{
 		std::wofstream out(L"Ben.txt");
@@ -1939,7 +1925,7 @@ int main()
 	int choice;
 	do
 	{
-		Rng1 r2;
+		
 		std::cout << "Anna komento\n \n0.Exit \n1.Leap Year caculator\n2.String reverse\n3.Seconds to Year\n" << std::endl;
 		std::cout << "4.ChessGrain \n5.RainDrop \n6.Pangram \n7.TwoFer \n8.Grade School \n" << std::endl;
 		std::cout << "9.Dna stuff \n10.CollatzConjecture \n11.Nth Prime number \n12.Queen Attack \n" << std::endl;
@@ -2064,7 +2050,6 @@ int main()
 			break;
 		case 36:
 			testi();
-			//std::cout << r2.test << std::endl;
 			break;
 		}
 

@@ -1,6 +1,6 @@
 #include "Rng.h"
 
-int Rng1::CreateInt(int min, int max, bool NormalDistr)
+int Rng::CreateInt(int min, int max, bool NormalDistr)
 {
 	int range = max - min + 1;
 	uint64_t out = rg();
@@ -24,31 +24,17 @@ int Rng1::CreateInt(int min, int max, bool NormalDistr)
 	return (int)out;
 }
 
-float Rng1::CreateFloat(float min, float max, bool NormalDistr)
+float Rng::CreateFloat(float min, float max, bool NormalDistr)  //1.5 - 3.5
 {
-	float out = 0.0f;
-	float range = max - min;
-	float decimals = 0.0f;
-	int firstnum = CreateInt(0, (int)range, NormalDistr);
-	float decimalrange = std::modff(range, &decimalrange);
-	decimalrange *= 100.0f;
-	if (decimalrange < 0.01f)
-	{
-		decimalrange += 100.0f;
-	}
-	int floatnumb = CreateInt(0, (int)decimalrange, NormalDistr);
-	if (floatnumb != 0)
-	{
-		decimals = (float)floatnumb / 100.0f;
-	}
-	out = firstnum + decimals + min;
-
+	float range = (max - min) * 100;
+	int decimal = CreateInt(0, (int)range, NormalDistr);
+	float out = ((float)decimal / 100) + min;
 	return out;
 }
 
-unsigned char Rng1::CreateChar()
+unsigned char Rng::CreateChar(bool NormalDistr)
 {
-	int random = CreateInt(33, 129);
+	int random = CreateInt(33, 129, NormalDistr);
 	if (random == 126)
 	{
 		random = 132;
@@ -69,18 +55,18 @@ unsigned char Rng1::CreateChar()
 	return out;
 }
 
-std::string Rng1::CreateString(int lenght)
+std::string Rng::CreateString(int lenght, bool NormalDistr)
 {
 	std::string out;
 	for (int i = 0; i < lenght; i++)
 	{
-		char c = CreateChar();
+		char c = CreateChar(NormalDistr);
 		out.push_back(c);
 	}
 	return out;
 }
 
-void Rng1::ReSeed()
+void Rng::ReSeed()
 {
 	seed = (unsigned int)std::chrono::high_resolution_clock::now().time_since_epoch().count();
 	rg.seed(seed);
