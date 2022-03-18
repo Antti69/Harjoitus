@@ -15,6 +15,8 @@
 namespace rg = std::ranges;
 namespace vi = std::ranges::views;
 
+//Information about the assignments is in https://exercism.org/tracks/cpp/exercises
+
 void fpoint(void(*funct)(int), int a) //fuctio pointer harjoitteluu, tutki myˆhemmin saako t‰ll‰ mit‰‰n j‰rkev‰‰ aikaseks
 									  //Leap year ja Space age k‰ytt‰‰ toistaseks..
 {
@@ -194,7 +196,7 @@ namespace Raindrop
 		int num;
 		std::cout << "Enter a number" << std::endl;
 		std::cin >> num;
-		std::cout << "Raindrop bullshit corresponding:  " << FactorCac(num) << std::endl;
+		std::cout << "Raindrop corresponding:  " << FactorCac(num) << std::endl;
 		Help::ClearStream();
 	}
 }
@@ -299,7 +301,7 @@ namespace TwoFer
 	}
 }
 
-namespace DnaStuff
+namespace DnaStuff		//this section contains multiple assignments
 {
 	bool CheckSeq(std::string Seq)
 	{
@@ -1926,7 +1928,7 @@ int main()
 	do
 	{
 		
-		std::cout << "Anna komento\n \n0.Exit \n1.Leap Year caculator\n2.String reverse\n3.Seconds to Year\n" << std::endl;
+		std::cout << "Anna komento     Teht‰v‰t on sivulta: https://exercism.org/tracks/cpp/exercises \n\n0.Exit\n1.Leap Year caculator\n2.String reverse\n3.Seconds to Year\n" << std::endl;
 		std::cout << "4.ChessGrain \n5.RainDrop \n6.Pangram \n7.TwoFer \n8.Grade School \n" << std::endl;
 		std::cout << "9.Dna stuff \n10.CollatzConjecture \n11.Nth Prime number \n12.Queen Attack \n" << std::endl;
 		std::cout << "13.NumToWords \n14.Gigaseconds \n15.Secret Handshake \n16.Allergies \n" << std::endl;
