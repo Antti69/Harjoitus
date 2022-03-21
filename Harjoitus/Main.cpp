@@ -1862,8 +1862,8 @@ void testi()
 	Rng r1;
 	std::vector<float> tt;
 	std::vector<int> ttt;
-	auto min = 0.0f;
-	auto max = 10.0f;
+	auto min = -7000;
+	auto max = 7000;
 	auto range = max - min;
 	auto mid = range / 2 + min;
 	auto lou = range / 10;
@@ -1871,18 +1871,18 @@ void testi()
 	auto hie = range / 3;
 	Bencher b;
 	b.Start();
-	std::cout << r1.CreateString(2000, true) << std::endl;
+	/*std::cout << r1.CreateString(2000, true) << std::endl;*/
 	for (int s = 0; s < 100; s++)
 	{
-		tt.push_back(r1.CreateFloat(min, max, true));
+		ttt.push_back(r1.CreateInt(min, max));
 	}
-	rg::sort(tt);
+	rg::sort(ttt);
 	int l = 0;
 	int m = 0;
 	int h = 0;
-	auto loww = tt | vi::filter([&](auto num) {return num <= min + lou || num >= max - lou; });
-	auto med = tt | vi::filter([&](auto num) {return (num > min + lou && num < mid - meu) || (num > mid + meu && num < max - lou); });
-	auto high = tt | vi::filter([&](auto num) {return num >= mid - meu && num <= mid + meu; });
+	auto loww = ttt | vi::filter([&](auto num) {return num <= min + lou || num >= max - lou; });
+	auto med = ttt | vi::filter([&](auto num) {return (num > min + lou && num < mid - meu) || (num > mid + meu && num < max - lou); });
+	auto high = ttt | vi::filter([&](auto num) {return num >= mid - meu && num <= mid + meu; });
 	for (auto& i : loww)
 	{
 		l++;
@@ -1906,7 +1906,7 @@ void testi()
 		std::wofstream out(L"Ben.txt");
 		out << std::wstring(b);
 	}
-	Help::PrintCont(tt);
+	Help::PrintCont(ttt);
 	/*Help::PrintCont(ttt);*/
 	Help::ClearStream();
 	Help::ClearStream();
