@@ -1903,7 +1903,7 @@ void testi()
 
 	if (b.End())
 	{
-		std::wofstream out(L"Ben.txt");
+        std::wofstream out("Ben.txt");
 		out << std::wstring(b);
 	}
 	Help::PrintCont(ttt);

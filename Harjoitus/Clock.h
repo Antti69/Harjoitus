@@ -7,7 +7,7 @@
 #include <ctime>
 #include <iomanip>
 #include "FrameTimer.h"
-#include <conio.h>
+#include "HelperFunc.h"
 
 class Clock
 {

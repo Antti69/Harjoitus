@@ -51,7 +51,7 @@ public:
 	void UpdateTime()
 	{
 		aika = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
-		localtime_s(&timebuffer, &aika);
+        localtime_r(&aika, &timebuffer);
 	}
 private:
 	time_t aika;

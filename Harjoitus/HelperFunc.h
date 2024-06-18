@@ -12,7 +12,9 @@
 #include <chrono>
 #include <ctime>
 #include <iomanip>
-#include <conio.h>
+#include <termios.h>
+#include <unistd.h>
+#include <fcntl.h>
 #include <unordered_map>
 #include <iterator>
 #include <list>
@@ -20,13 +22,13 @@
 
 namespace Help
 {
-	bool IsOdd(int x)
+    inline bool IsOdd(int x)
 	{
 		return x % 2 == 0;
 	}
 
 
-	void ClearStream()
+    inline void ClearStream()
 	{
 		std::cin.clear();
 		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -78,6 +80,37 @@ namespace Help
 		}
 		ClearStream();
 	}
+
+    // Funktio, joka tarkistaa, onko näppäinpainallusta
+    inline bool kbhit() {
+        struct termios oldt, newt;
+        int ch;
+        int oldf;
+
+        // Tallenna nykyiset terminaaliasetukset
+        tcgetattr(STDIN_FILENO, &oldt);
+        newt = oldt;
+        newt.c_lflag &= ~(ICANON | ECHO);
+
+        // Aseta uudet terminaaliasetukset
+        tcsetattr(STDIN_FILENO, TCSANOW, &newt);
+        oldf = fcntl(STDIN_FILENO, F_GETFL, 0);
+        fcntl(STDIN_FILENO, F_SETFL, oldf | O_NONBLOCK);
+
+        // Tarkista, onko näppäinpainallusta
+        ch = getchar();
+
+        // Palauta vanhat terminaaliasetukset
+        tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
+        fcntl(STDIN_FILENO, F_SETFL, oldf);
+
+        if (ch != EOF) {
+            ungetc(ch, stdin);
+            return true;
+        }
+
+        return false;
+    }
 
 	class StringSwitch
 	{

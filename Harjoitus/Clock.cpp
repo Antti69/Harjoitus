@@ -46,7 +46,7 @@ void Clock::ChangeTime()
 
 	time_t temp = time_t(min);
 	aika += temp;
-	localtime_s(&timebuffer, &aika);
+    localtime_r(&aika, &timebuffer);
 }
 
 void Clock::StopWatch()
@@ -56,12 +56,13 @@ void Clock::StopWatch()
 	std::cout << "Press enter to start the Clock!" << std::endl;
 	std::cin >> start;
 	float sec = 0;
-	while (!_kbhit())
+
+    while(!Help::kbhit())
 	{
 		
 		FrameTimer ft;
 		std::cout << "Timer: " << sec << std::endl;
-		system("cls");
+        system("clear");
 		sec += ft.Mark<float>();
 	}
 	std::cout << "Timer: " << sec << std::endl;
@@ -73,7 +74,7 @@ void Clock::StopWatch()
 void Clock::UpdateTime()
 {
 	aika = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
-	localtime_s(&timebuffer, &aika);
+    localtime_r(&aika, &timebuffer);
 }
 
 time_t Clock::GetTime() const
