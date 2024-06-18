@@ -361,3 +361,29 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+#Linux stuff
+
+# CMake build directory
+build/
+
+# Linux generated files
+*.o
+*.a
+*.so
+*.swp
+
+# Qt specific files
+*.pro.user
+*.qmake.stash
+*.qmake.cache
+
+# QtCreator generated files
+*.autosave
+*.creator.*
+
+# VSCode specific files
+.vscode/
+
+# Ignore backup files
+*~
